@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A0954A42A41573900222D65 /* Gone_FishingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0954A32A41573900222D65 /* Gone_FishingView.h */; };
-		7A0954A62A41573900222D65 /* Gone_FishingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0954A52A41573900222D65 /* Gone_FishingView.m */; };
+		7A0370302A5313B600444F1E /* thumbnail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A03702E2A5313B600444F1E /* thumbnail@2x.png */; };
+		7A0370312A5313B600444F1E /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A03702F2A5313B600444F1E /* thumbnail.png */; };
+		7A0954AE2A41575E00222D65 /* GoneFishing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0954AD2A41575E00222D65 /* GoneFishing.swift */; };
+		7A0954C02A4162C900222D65 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A0954BF2A4162C900222D65 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7A03702E2A5313B600444F1E /* thumbnail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail@2x.png"; sourceTree = "<group>"; };
+		7A03702F2A5313B600444F1E /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbnail.png; sourceTree = "<group>"; };
 		7A0954A02A41573900222D65 /* Gone Fishing.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gone Fishing.saver"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A0954A32A41573900222D65 /* Gone_FishingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Gone_FishingView.h; sourceTree = "<group>"; };
-		7A0954A52A41573900222D65 /* Gone_FishingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Gone_FishingView.m; sourceTree = "<group>"; };
+		7A0954AC2A41575E00222D65 /* Gone Fishing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gone Fishing-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A0954AD2A41575E00222D65 /* GoneFishing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoneFishing.swift; sourceTree = "<group>"; };
+		7A0954BF2A4162C900222D65 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,9 @@
 		7A0954962A41573900222D65 = {
 			isa = PBXGroup;
 			children = (
+				7A03702F2A5313B600444F1E /* thumbnail.png */,
+				7A03702E2A5313B600444F1E /* thumbnail@2x.png */,
+				7A0954BF2A4162C900222D65 /* Media.xcassets */,
 				7A0954A22A41573900222D65 /* Gone Fishing */,
 				7A0954A12A41573900222D65 /* Products */,
 			);
@@ -47,8 +55,8 @@
 		7A0954A22A41573900222D65 /* Gone Fishing */ = {
 			isa = PBXGroup;
 			children = (
-				7A0954A32A41573900222D65 /* Gone_FishingView.h */,
-				7A0954A52A41573900222D65 /* Gone_FishingView.m */,
+				7A0954AD2A41575E00222D65 /* GoneFishing.swift */,
+				7A0954AC2A41575E00222D65 /* Gone Fishing-Bridging-Header.h */,
 			);
 			path = "Gone Fishing";
 			sourceTree = "<group>";
@@ -60,7 +68,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A0954A42A41573900222D65 /* Gone_FishingView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +81,7 @@
 				7A09549B2A41573900222D65 /* Headers */,
 				7A09549C2A41573900222D65 /* Sources */,
 				7A09549D2A41573900222D65 /* Frameworks */,
-				7A09549E2A41573900222D65 /* Resources */,
+				7A0954B62A415FE200222D65 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -96,6 +103,7 @@
 				TargetAttributes = {
 					7A09549F2A41573900222D65 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -118,10 +126,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7A09549E2A41573900222D65 /* Resources */ = {
+		7A0954B62A415FE200222D65 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0954C02A4162C900222D65 /* Media.xcassets in Resources */,
+				7A0370302A5313B600444F1E /* thumbnail@2x.png in Resources */,
+				7A0370312A5313B600444F1E /* thumbnail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A0954A62A41573900222D65 /* Gone_FishingView.m in Sources */,
+				7A0954AE2A41575E00222D65 /* GoneFishing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,18 +262,22 @@
 		7A0954AA2A41573900222D65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24653SX372;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = Gone_FishingView;
+				INFOPLIST_KEY_NSPrincipalClass = GoneFishingView;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Gone Fishing/Gone Fishing-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Debug;
@@ -270,18 +285,21 @@
 		7A0954AB2A41573900222D65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24653SX372;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSPrincipalClass = Gone_FishingView;
+				INFOPLIST_KEY_NSPrincipalClass = GoneFishingView;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Gone Fishing/Gone Fishing-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Release;
