@@ -644,12 +644,15 @@ class Fish {
                 } else if position.x > parent.getFrame().width - swimInThreshold {
                     rotation = 180
                 } else {
-                    // More likely to swim towards middle: 1/5 left, 1/5 right, 3/5 to center
+                    // More likely to swim towards hook, or center if no hook: 1/5 left, 1/5 right, 3/5 towards hook/center
                     let directionChoice = Int.random(in: 1...5)
                     if directionChoice == 1 {rotation = 0}
                     else if directionChoice == 2 {rotation = 180}
                     else {
-                        rotation = (parent.getFrame().width/2 - position.x > 0) ? 0 : 180
+                        let targetX: CGFloat
+                        if (parent.visualHookPos() != nil) {targetX = parent.visualHookPos()!.x}
+                        else {targetX = parent.getFrame().width/2}
+                        rotation = (targetX - position.x > 0) ? 0 : 180
                     }
                 }
             }
