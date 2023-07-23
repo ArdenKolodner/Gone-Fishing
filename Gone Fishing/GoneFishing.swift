@@ -14,9 +14,6 @@ let toDegrees = CGFloat(180) / .pi
 
 let displayFishDirections = false
 
-var counterUpperLimit: CGFloat = 1000
-var counterLowerLimit: CGFloat = 400
-
 enum Phase {
     case Delay
     case ThrowHook
@@ -76,6 +73,10 @@ class GoneFishingView: ScreenSaverView {
     private var fishSpawnEventTimer: Date?
     private var fishSpawnEventInterval: CGFloat = 10
     
+    public var counterUpperLimit: CGFloat = 1000
+    public var counterLowerLimit: CGFloat = 400
+    public var counterMargin: CGFloat = 200
+    
     private var counters: [FishCountView]
     
     public func getFrame() -> NSRect {return frame}
@@ -84,8 +85,9 @@ class GoneFishingView: ScreenSaverView {
     
     // MARK: - Initialization
     override init?(frame: NSRect, isPreview: Bool) {
-        counterUpperLimit = 2 * frame.height / 3
-        counterLowerLimit = frame.height / 3
+        counterUpperLimit = 5 * frame.height / 6
+        counterLowerLimit = frame.height / 6
+        counterMargin = frame.height / 5
         
         boatImg = assets?.image(forResource: "sailboat")
         hookImg = assets?.image(forResource: "fishhook")
@@ -101,13 +103,14 @@ class GoneFishingView: ScreenSaverView {
         fish = []
         
         counters = []
-        var yPos = 600
-        for i in 0 ... Fish.fishImgs.count-1 {
-            counters.append(FishCountView(index: i, pos: CGPoint(x: 50, y: yPos)))
-            yPos -= 100
-        }
     
         super.init(frame: frame, isPreview: isPreview)
+        
+        var yPos = 600
+        for i in 0 ... Fish.fishImgs.count-1 {
+            counters.append(FishCountView(index: i, pos: CGPoint(x: 50, y: yPos), parent: self))
+            yPos -= 100
+        }
         
         let numClouds = Int.random(in: 7...12)
         for i in 1...numClouds {
@@ -348,6 +351,15 @@ class GoneFishingView: ScreenSaverView {
     func randomFishPos() -> CGPoint {
         return CGPoint(x: Bool.random() ? -50 : frame.width + 50, y: CGFloat.random(in: 0...waterLevel * 0.8))
     }
+    
+    func nextLowestCounterPos() -> CGFloat {
+        var min = CGFloat.infinity
+        for counter in counters {
+            if counter.position.y < min {min = counter.position.y}
+        }
+        
+        return min - 100
+    }
 }
 
 class Cloud {
@@ -386,19 +398,21 @@ class Cloud {
 }
 
 class FishCountView {
+    private let parent: GoneFishingView
     private let index: Int
     private var count: Int
     
-    private var position: CGPoint
+    var position: CGPoint
     
     private let img: NSImage
     
     private let speed: CGFloat = 1
         
-    init(index: Int, pos: CGPoint) {
+    init(index: Int, pos: CGPoint, parent: GoneFishingView) {
         self.index = index
         self.count = 0
         self.position = pos
+        self.parent = parent
         
         // Copies image
         self.img = Fish.fishImgs[index]!.rotatedByDegrees(degrees: 0)
@@ -408,10 +422,10 @@ class FishCountView {
     
     public func draw() {
         let alpha: CGFloat
-        if position.y > counterUpperLimit - 200 {
-            alpha = CGFloat(counterUpperLimit - position.y) / 200
-        } else if position.y < counterLowerLimit {
-            alpha = CGFloat(position.y - (counterLowerLimit - 200)) / 200
+        if position.y > parent.counterUpperLimit - parent.counterMargin {
+            alpha = CGFloat(parent.counterUpperLimit - position.y) / parent.counterMargin
+        } else if position.y < parent.counterLowerLimit + parent.counterMargin {
+            alpha = CGFloat(position.y - parent.counterLowerLimit) / parent.counterMargin
         } else {alpha = 1}
         
         img.draw(in: NSRect(origin: CGPoint(x: position.x, y: position.y), size: img.size), from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: alpha)
@@ -423,8 +437,8 @@ class FishCountView {
     public func animate() {
         position.y += speed
         
-        if position.y > 1000 {
-            position.y -= CGFloat(100 * Fish.fishImgs.count)
+        if position.y > parent.counterUpperLimit {
+            position.y = parent.nextLowestCounterPos()
         }
     }
 }
