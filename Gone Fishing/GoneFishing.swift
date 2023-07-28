@@ -18,6 +18,7 @@ enum Phase {
     case Delay
     case ThrowHook
     case ReelIn
+    case SwitchShip
 }
 
 enum FishBehavior {
@@ -56,7 +57,7 @@ class GoneFishingView: ScreenSaverView {
     private var fisherOffsets = [
         CGVector(dx: 75, dy: 30),
         CGVector(dx: 220, dy: 50),
-        CGVector(dx: 75, dy: 30)
+        CGVector(dx: 220, dy: 50)
     ]
     
     private var stringOffset = CGVector(dx: 8, dy: 12)
@@ -66,6 +67,7 @@ class GoneFishingView: ScreenSaverView {
     private var timesUnderwater = 0
     
     private var DELAY_LENGTH_SEC = 1
+    private var SWITCH_LENGTH_SEC = 3
     
     private var delayStart: Date?
     private var reelInStart = Date()
@@ -171,11 +173,28 @@ class GoneFishingView: ScreenSaverView {
         return basePos
     }
     
+    func getBoatPos(ind: Int) -> CGPoint {
+        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[ind]!.size.height / 4)
+        
+        if (ind >= 1 && ind <= 2) {
+            basePos.y += boatImgs[ind]!.size.height / 8
+        }
+        
+        return basePos
+    }
+    
     func getBoatFloatPos() -> CGPoint {
         let nsec = Calendar.current.component(.nanosecond, from: Date.now)
         let conversionFactor = CGFloat(1000000000)
         let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
         return CGPoint(x: getBoatPos().x, y: getBoatPos().y + boatBobIntensity*sin(CGFloat(nsec) / period))
+    }
+    
+    func getBoatFloatPos(ind: Int) -> CGPoint {
+        let nsec = Calendar.current.component(.nanosecond, from: Date.now)
+        let conversionFactor = CGFloat(1000000000)
+        let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
+        return CGPoint(x: getBoatPos(ind: ind).x, y: getBoatPos(ind: ind).y + boatBobIntensity*sin(CGFloat(nsec) / period))
     }
     
     public func notifyOnHook() {
@@ -187,6 +206,10 @@ class GoneFishingView: ScreenSaverView {
         delayStart = nil
         hookPos = nil
         timesUnderwater = 0
+        
+        if (phase == .Delay || phase == .SwitchShip) {
+            delayStart = Date()
+        }
     }
 
     // MARK: - Lifecycle
@@ -229,9 +252,20 @@ class GoneFishingView: ScreenSaverView {
         }
         
         if boatImgs[boatImgIndex] != nil {
-            //let boatImg = NSImage(contentsOfFile: boatImgPath!)
+            let boatImg = boatImgs[boatImgIndex]
             let boatRect = NSRect(origin: getBoatFloatPos(), size: boatImgs[boatImgIndex]!.size)
-            boatImgs[boatImgIndex]!.draw(in: boatRect)
+            
+            if (phase == .SwitchShip && delayStart != nil) {
+                let pctDone = Date.now.timeIntervalSince(delayStart!) / Double(SWITCH_LENGTH_SEC)
+                boatImg!.draw(in: boatRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: pctDone)
+                
+                let oldRect = NSRect(origin: getBoatFloatPos(ind: boatImgIndex-1), size: boatImgs[boatImgIndex-1]!.size)
+                
+                boatImgs[boatImgIndex-1]!.draw(in: oldRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: 1-pctDone)
+            } else {
+                boatImg!.draw(in: boatRect)
+            }
+            
         } else {
             print("Failed to load boat image!")
             NSColor.red.setFill()
@@ -243,6 +277,7 @@ class GoneFishingView: ScreenSaverView {
         super.animateOneFrame()
         
         var deadClouds: [Int] = []
+        
         for i in 0...clouds.count-1 {
             clouds[i].animate()
             
@@ -354,12 +389,17 @@ class GoneFishingView: ScreenSaverView {
                     totalFishCaught += 1
                     if (boatImgIndex == 0 && totalFishCaught >= 10) {
                         boatImgIndex = 1
+                        
+                        phase = .SwitchShip
                     } else if (boatImgIndex == 1 && totalFishCaught >= 20) {
                         boatImgIndex = 2
+                        
+                        phase = .SwitchShip
+                    } else {
+                        phase = .Delay
                     }
                 }
                 
-                phase = .Delay
                 resetVars()
             } else {
                 let hookMoveVec_norm = CGVector(dx: hookMoveVec.dx / magnitude, dy: hookMoveVec.dy / magnitude)
@@ -367,6 +407,15 @@ class GoneFishingView: ScreenSaverView {
                 hookPos!.x += hookMoveVec_norm.dx * reelInSpeed
                 hookPos!.y += hookMoveVec_norm.dy * reelInSpeed
             }
+            break;
+        case .SwitchShip:
+            if (delayStart == nil) {
+                delayStart = Date()
+            } else if (Int(Date.now.timeIntervalSince(delayStart!)) >= SWITCH_LENGTH_SEC) {
+                phase = .Delay
+                resetVars()
+            }
+            
             break;
         }
         
