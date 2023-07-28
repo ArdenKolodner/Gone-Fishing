@@ -29,7 +29,8 @@ enum FishBehavior {
 
 class GoneFishingView: ScreenSaverView {
     private let assets = Bundle.init(identifier: "com.ardenkolodner.Gone-Fishing")
-    private let boatImg: NSImage?
+    private let boatImgs: [NSImage?]
+    private var boatImgIndex: Int = 0
     private let hookImg: NSImage?
     
     private var hookPos: CGPoint?
@@ -42,7 +43,6 @@ class GoneFishingView: ScreenSaverView {
     private var phase: Phase
     
     private var waterLevel: CGFloat
-    private var boatPos: CGPoint
     
     private let boatBobIntensity: CGFloat = 1.2
     private let boatBobSpeed: CGFloat = 0.8
@@ -53,7 +53,11 @@ class GoneFishingView: ScreenSaverView {
     
     private let reelBackThreshold: CGFloat = 5
     
-    private var fisherOffset = CGVector(dx: 75, dy: 30)
+    private var fisherOffsets = [
+        CGVector(dx: 75, dy: 30),
+        CGVector(dx: 220, dy: 50),
+        CGVector(dx: 75, dy: 30)
+    ]
     
     private var stringOffset = CGVector(dx: 8, dy: 12)
     private var hookOffset = CGVector(dx: 8, dy: 8)
@@ -79,6 +83,8 @@ class GoneFishingView: ScreenSaverView {
     
     private var counters: [FishCountView]
     
+    private var totalFishCaught = 0
+    
     public func getFrame() -> NSRect {return frame}
     
     public func getPhase() -> Phase {return phase}
@@ -89,14 +95,17 @@ class GoneFishingView: ScreenSaverView {
         counterLowerLimit = frame.height / 6
         counterMargin = frame.height / 5
         
-        boatImg = assets?.image(forResource: "sailboat")
+        boatImgs = [
+            assets?.image(forResource: "sailboat"),
+            assets?.image(forResource: "galleon"),
+            assets?.image(forResource: "galleon_insignia")
+        ]
         hookImg = assets?.image(forResource: "fishhook")
         
         phase = Phase.Delay
         delayStart = nil
         
         waterLevel = frame.height / 2
-        boatPos = CGPoint(x: frame.width / 6, y: waterLevel - boatImg!.size.height / 4)
         
         clouds = []
         
@@ -146,14 +155,27 @@ class GoneFishingView: ScreenSaverView {
     
     public func fisherPos() -> CGPoint {
         let p = getBoatFloatPos()
-        return CGPoint(x: p.x + fisherOffset.dx, y: p.y + fisherOffset.dy)
+        return CGPoint(
+            x: p.x + fisherOffsets[boatImgIndex].dx,
+            y: p.y + fisherOffsets[boatImgIndex].dy
+        )
+    }
+    
+    func getBoatPos() -> CGPoint {
+        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[boatImgIndex]!.size.height / 4)
+        
+        if (boatImgIndex >= 1 && boatImgIndex <= 2) {
+            basePos.y += boatImgs[boatImgIndex]!.size.height / 8
+        }
+        
+        return basePos
     }
     
     func getBoatFloatPos() -> CGPoint {
         let nsec = Calendar.current.component(.nanosecond, from: Date.now)
         let conversionFactor = CGFloat(1000000000)
         let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
-        return CGPoint(x: boatPos.x, y: boatPos.y + boatBobIntensity*sin(CGFloat(nsec) / period))
+        return CGPoint(x: getBoatPos().x, y: getBoatPos().y + boatBobIntensity*sin(CGFloat(nsec) / period))
     }
     
     public func notifyOnHook() {
@@ -206,10 +228,10 @@ class GoneFishingView: ScreenSaverView {
             reelPath.stroke()
         }
         
-        if boatImg != nil {
+        if boatImgs[boatImgIndex] != nil {
             //let boatImg = NSImage(contentsOfFile: boatImgPath!)
-            let boatRect = NSRect(origin: getBoatFloatPos(), size: boatImg!.size)
-            boatImg!.draw(in: boatRect)
+            let boatRect = NSRect(origin: getBoatFloatPos(), size: boatImgs[boatImgIndex]!.size)
+            boatImgs[boatImgIndex]!.draw(in: boatRect)
         } else {
             print("Failed to load boat image!")
             NSColor.red.setFill()
@@ -328,6 +350,13 @@ class GoneFishingView: ScreenSaverView {
                     
                     let pos = randomFishPos()
                     fish[i] = Fish(pos: pos, parent: self)
+                    
+                    totalFishCaught += 1
+                    if (boatImgIndex == 0 && totalFishCaught >= 10) {
+                        boatImgIndex = 1
+                    } else if (boatImgIndex == 1 && totalFishCaught >= 20) {
+                        boatImgIndex = 2
+                    }
                 }
                 
                 phase = .Delay
