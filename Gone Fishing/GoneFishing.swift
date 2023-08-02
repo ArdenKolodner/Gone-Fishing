@@ -63,6 +63,7 @@ class GoneFishingView: ScreenSaverView {
     private var stringOffset = CGVector(dx: 8, dy: 12)
     private var hookOffset = CGVector(dx: 8, dy: 8)
     
+    private var wasUnderwaterLast = false
     private var wasUnderwaterBefore = false
     private var timesUnderwater = 0
     
@@ -73,6 +74,8 @@ class GoneFishingView: ScreenSaverView {
     private var reelInStart = Date()
     
     private var clouds: [Cloud]
+    
+    private let water: SimulatedWater
     
     private var fish: [Fish]
     private var fishToDespawn: Int?
@@ -86,6 +89,9 @@ class GoneFishingView: ScreenSaverView {
     private var counters: [FishCountView]
     
     private var totalFishCaught = 0
+    
+    private let skyColor = NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1)
+    private let oceanColor = NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1)
     
     public func getFrame() -> NSRect {return frame}
     
@@ -114,6 +120,8 @@ class GoneFishingView: ScreenSaverView {
         fish = []
         
         counters = []
+        
+        water = SimulatedWater(frame: frame, waterLevel: waterLevel, waterColor: oceanColor)
     
         super.init(frame: frame, isPreview: isPreview)
         
@@ -215,16 +223,18 @@ class GoneFishingView: ScreenSaverView {
     // MARK: - Lifecycle
     override func draw(_ rect: NSRect) {
         // Draw a single frame in this function
-        let oceanRect = NSRect(origin: rect.origin, size: CGSize(width: rect.width, height: rect.height - waterLevel))
-        let skyRect = NSRect(origin: CGPoint(x: rect.origin.x, y: rect.origin.y + waterLevel), size: CGSize(width: rect.width, height: waterLevel))
+//        let oceanRect = NSRect(origin: rect.origin, size: CGSize(width: rect.width, height: rect.height - waterLevel))
+//        let skyRect = NSRect(origin: CGPoint(x: rect.origin.x, y: rect.origin.y + waterLevel), size: CGSize(width: rect.width, height: waterLevel))
+        let skyRect = rect
         
         let skyPath = NSBezierPath(rect: skyRect)
-        let oceanPath = NSBezierPath(rect: oceanRect)
+//        let oceanPath = NSBezierPath(rect: oceanRect)
         
-        NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1).setFill()
+        skyColor.setFill()
         skyPath.fill()
-        NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1).setFill()
-        oceanPath.fill()
+//        oceanColor.setFill()
+//        oceanPath.fill()
+        water.draw()
         
         for cloud in clouds {
             cloud.draw()
@@ -269,12 +279,14 @@ class GoneFishingView: ScreenSaverView {
         } else {
             print("Failed to load boat image!")
             NSColor.red.setFill()
-            oceanPath.fill()
+//            oceanPath.fill()
         }
     }
 
     override func animateOneFrame() {
         super.animateOneFrame()
+        
+        water.animateFrame()
         
         var deadClouds: [Int] = []
         
@@ -338,6 +350,7 @@ class GoneFishingView: ScreenSaverView {
             break;
         case .ThrowHook:
             if hookPos == nil || hookVel == nil {
+                wasUnderwaterLast = false;
                 wasUnderwaterBefore = false;
                 hookPos = fisherPos()
                 hookVel = randomVelocity()
@@ -356,6 +369,7 @@ class GoneFishingView: ScreenSaverView {
             if hookPos!.y < 0 {hookVel!.dy *= -1}
             if hookPos!.y > frame.height {hookVel!.dy = 0; hookPos!.y = frame.height}
             
+            // If hook just hit water
             if hookPos!.y < waterLevel && !wasUnderwaterBefore {
                 wasUnderwaterBefore = true
                 
@@ -363,9 +377,21 @@ class GoneFishingView: ScreenSaverView {
                 if timesUnderwater == 1 {
                     hookVel!.dy *= -1
                 } else {
+                    // Slow hook as it hits water
                     hookVel!.dx *= waterDragCoefficient
                     hookVel!.dy = -underwaterSpeed
                 }
+            }
+            
+            if hookPos!.y < waterLevel && !wasUnderwaterLast {
+                // Make water splash
+                water.perturb(x: visualHookPos()!.x, intensity: wasUnderwaterBefore ? 4 : 6)
+            }
+            
+            if hookPos!.y < waterLevel {
+                wasUnderwaterLast = true
+            } else {
+                wasUnderwaterLast = false;
             }
             break;
         case .ReelIn:
