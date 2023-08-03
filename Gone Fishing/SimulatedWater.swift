@@ -122,6 +122,6 @@ class SimulatedWater {
     }
     
     private func randomSmallAccel() -> CGFloat {
-        return CGFloat.random(in: -0.1...0.1)
+        return CGFloat.random(in: -0.2...0.2)
     }
 }
