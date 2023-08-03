@@ -45,9 +45,6 @@ class GoneFishingView: ScreenSaverView {
     
     private var waterLevel: CGFloat
     
-    private let boatBobIntensity: CGFloat = 1.2
-    private let boatBobSpeed: CGFloat = 0.8
-    
     private var gravity: CGFloat = 0.5
     private var underwaterSpeed: CGFloat = 7
     private var waterDragCoefficient: CGFloat = 0.9
@@ -60,9 +57,16 @@ class GoneFishingView: ScreenSaverView {
         CGVector(dx: 220, dy: 50)
     ]
     
+    private var boatOffsets = [
+        CGPoint(x: 0, y: -25),
+        CGPoint(x: 0, y: -25),
+        CGPoint(x: 0, y: -25)
+    ]
+    
     private var stringOffset = CGVector(dx: 8, dy: 12)
     private var hookOffset = CGVector(dx: 8, dy: 8)
     
+    private var wasUnderwaterLast = false
     private var wasUnderwaterBefore = false
     private var timesUnderwater = 0
     
@@ -73,6 +77,14 @@ class GoneFishingView: ScreenSaverView {
     private var reelInStart = Date()
     
     private var clouds: [Cloud]
+    
+    private var droplets: [Droplet]
+    private let splashVarianceXLower: CGFloat = -1.0
+    private let splashVarianceXUpper: CGFloat = 2.0
+    private let splashVarianceYLower: CGFloat = 0.5
+    private let splashVarianceYUpper: CGFloat = 1.0
+    
+    private let water: SimulatedWater
     
     private var fish: [Fish]
     private var fishToDespawn: Int?
@@ -86,6 +98,9 @@ class GoneFishingView: ScreenSaverView {
     private var counters: [FishCountView]
     
     private var totalFishCaught = 0
+    
+    private let skyColor = NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1)
+    private let oceanColor = NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1)
     
     public func getFrame() -> NSRect {return frame}
     
@@ -114,6 +129,10 @@ class GoneFishingView: ScreenSaverView {
         fish = []
         
         counters = []
+        
+        droplets = []
+        
+        water = SimulatedWater(frame: frame, waterLevel: waterLevel, waterColor: oceanColor)
     
         super.init(frame: frame, isPreview: isPreview)
         
@@ -156,7 +175,7 @@ class GoneFishingView: ScreenSaverView {
     }
     
     public func fisherPos() -> CGPoint {
-        let p = getBoatFloatPos()
+        let p = getBoatPos()
         return CGPoint(
             x: p.x + fisherOffsets[boatImgIndex].dx,
             y: p.y + fisherOffsets[boatImgIndex].dy
@@ -164,37 +183,17 @@ class GoneFishingView: ScreenSaverView {
     }
     
     func getBoatPos() -> CGPoint {
-        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[boatImgIndex]!.size.height / 4)
-        
-        if (boatImgIndex >= 1 && boatImgIndex <= 2) {
-            basePos.y += boatImgs[boatImgIndex]!.size.height / 8
-        }
-        
-        return basePos
+        return CGPoint(
+            x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
+            y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
+        )
     }
     
     func getBoatPos(ind: Int) -> CGPoint {
-        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[ind]!.size.height / 4)
-        
-        if (ind >= 1 && ind <= 2) {
-            basePos.y += boatImgs[ind]!.size.height / 8
-        }
-        
-        return basePos
-    }
-    
-    func getBoatFloatPos() -> CGPoint {
-        let nsec = Calendar.current.component(.nanosecond, from: Date.now)
-        let conversionFactor = CGFloat(1000000000)
-        let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
-        return CGPoint(x: getBoatPos().x, y: getBoatPos().y + boatBobIntensity*sin(CGFloat(nsec) / period))
-    }
-    
-    func getBoatFloatPos(ind: Int) -> CGPoint {
-        let nsec = Calendar.current.component(.nanosecond, from: Date.now)
-        let conversionFactor = CGFloat(1000000000)
-        let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
-        return CGPoint(x: getBoatPos(ind: ind).x, y: getBoatPos(ind: ind).y + boatBobIntensity*sin(CGFloat(nsec) / period))
+        return CGPoint(
+            x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
+            y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
+        )
     }
     
     public func notifyOnHook() {
@@ -215,28 +214,24 @@ class GoneFishingView: ScreenSaverView {
     // MARK: - Lifecycle
     override func draw(_ rect: NSRect) {
         // Draw a single frame in this function
-        let oceanRect = NSRect(origin: rect.origin, size: CGSize(width: rect.width, height: rect.height - waterLevel))
-        let skyRect = NSRect(origin: CGPoint(x: rect.origin.x, y: rect.origin.y + waterLevel), size: CGSize(width: rect.width, height: waterLevel))
+        let skyRect = rect
         
         let skyPath = NSBezierPath(rect: skyRect)
-        let oceanPath = NSBezierPath(rect: oceanRect)
+//        let oceanPath = NSBezierPath(rect: oceanRect)
         
-        NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1).setFill()
+        skyColor.setFill()
         skyPath.fill()
-        NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1).setFill()
-        oceanPath.fill()
+//        oceanColor.setFill()
+//        oceanPath.fill()
+        water.draw()
         
-        for cloud in clouds {
-            cloud.draw()
-        }
+        for droplet in droplets {droplet.draw()}
         
-        for f in fish {
-            f.draw()
-        }
+        for cloud in clouds {cloud.draw()}
         
-        for c in counters {
-            c.draw()
-        }
+        for f in fish {f.draw()}
+        
+        for c in counters {c.draw()}
         
         if hookPos != nil && hookVel != nil {
             let hookRect = NSRect(origin: hookPos!, size: hookImg!.size)
@@ -253,13 +248,13 @@ class GoneFishingView: ScreenSaverView {
         
         if boatImgs[boatImgIndex] != nil {
             let boatImg = boatImgs[boatImgIndex]
-            let boatRect = NSRect(origin: getBoatFloatPos(), size: boatImgs[boatImgIndex]!.size)
+            let boatRect = NSRect(origin: getBoatPos(), size: boatImgs[boatImgIndex]!.size)
             
             if (phase == .SwitchShip && delayStart != nil) {
                 let pctDone = Date.now.timeIntervalSince(delayStart!) / Double(SWITCH_LENGTH_SEC)
                 boatImg!.draw(in: boatRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: pctDone)
                 
-                let oldRect = NSRect(origin: getBoatFloatPos(ind: boatImgIndex-1), size: boatImgs[boatImgIndex-1]!.size)
+                let oldRect = NSRect(origin: getBoatPos(ind: boatImgIndex-1), size: boatImgs[boatImgIndex-1]!.size)
                 
                 boatImgs[boatImgIndex-1]!.draw(in: oldRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: 1-pctDone)
             } else {
@@ -269,12 +264,14 @@ class GoneFishingView: ScreenSaverView {
         } else {
             print("Failed to load boat image!")
             NSColor.red.setFill()
-            oceanPath.fill()
+//            oceanPath.fill()
         }
     }
 
     override func animateOneFrame() {
         super.animateOneFrame()
+        
+        water.animateFrame()
         
         var deadClouds: [Int] = []
         
@@ -288,6 +285,25 @@ class GoneFishingView: ScreenSaverView {
         
         for dead in deadClouds {
             clouds[dead] = Cloud(pos: randomCloudPos())
+        }
+        
+//        for i in 0...droplets.count-1 {
+//            droplets[i].animate()
+//            let p = droplets[i].getPos()
+//            if p.x > frame.width || p.x < 0 || p.y < 0 {
+//                droplets.remove(at: i)
+//            }
+//        }
+        if droplets.count > 0 {
+            var livingDroplets: [Droplet] = []
+            for i in 0...droplets.count-1 {
+                droplets[i].animate()
+                let p = droplets[i].getPos()
+                if !(p.x > frame.width || p.x < 0 || p.y < 0) {
+                    livingDroplets.append(droplets[i])
+                }
+            }
+            droplets = livingDroplets
         }
         
         for fish in fish {
@@ -338,6 +354,7 @@ class GoneFishingView: ScreenSaverView {
             break;
         case .ThrowHook:
             if hookPos == nil || hookVel == nil {
+                wasUnderwaterLast = false;
                 wasUnderwaterBefore = false;
                 hookPos = fisherPos()
                 hookVel = randomVelocity()
@@ -345,7 +362,26 @@ class GoneFishingView: ScreenSaverView {
             hookPos!.x += hookVel!.dx
             hookPos!.y += hookVel!.dy
             
-            if hookPos!.y > waterLevel {
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) && !wasUnderwaterLast {
+                // Make water splash
+                water.perturb(x: visualHookPos()!.x, intensity: abs(hookVel!.dy))
+                
+                for _ in 1...Int.random(in: 7...15) {
+                    droplets.append(
+                        Droplet(
+                            position: visualHookPos()!, velocity: randomDropletVel(), color: oceanColor
+                        )
+                    )
+                }
+            }
+            
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) {
+                wasUnderwaterLast = true
+            } else {
+                wasUnderwaterLast = false;
+            }
+            
+            if hookPos!.y > water.getWaterLevelAt(x: hookPos!.x) {
                 hookVel!.dy -= gravity
             } else {
                 hookVel!.dy *= 0.97
@@ -356,13 +392,15 @@ class GoneFishingView: ScreenSaverView {
             if hookPos!.y < 0 {hookVel!.dy *= -1}
             if hookPos!.y > frame.height {hookVel!.dy = 0; hookPos!.y = frame.height}
             
-            if hookPos!.y < waterLevel && !wasUnderwaterBefore {
+            // If hook just hit water
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) && !wasUnderwaterBefore {
                 wasUnderwaterBefore = true
                 
                 timesUnderwater += 1
                 if timesUnderwater == 1 {
                     hookVel!.dy *= -1
                 } else {
+                    // Slow hook as it hits water
                     hookVel!.dx *= waterDragCoefficient
                     hookVel!.dy = -underwaterSpeed
                 }
@@ -442,6 +480,13 @@ class GoneFishingView: ScreenSaverView {
         }
         
         return min - 100
+    }
+    
+    func randomDropletVel() -> CGVector {
+        return CGVector(
+            dx: hookVel!.dx * CGFloat.random(in: splashVarianceXLower...splashVarianceXUpper),
+            dy: abs(hookVel!.dy) * CGFloat.random(in: splashVarianceYLower...splashVarianceYUpper)
+        )
     }
 }
 
@@ -829,6 +874,40 @@ class Fish {
             }
         }
     }
+}
+
+class Droplet {
+    private var position: CGPoint
+    private var velocity: CGVector
+    
+    private let size: CGFloat = 5
+    
+    private let gravity: CGFloat = 1
+    
+    private var color: NSColor
+    
+    init(position: CGPoint, velocity: CGVector, color: NSColor) {
+        self.position = position
+        self.velocity = velocity
+        self.color = color
+    }
+    
+    public func animate() {
+        position.x += velocity.dx
+        position.y += velocity.dy
+        
+        velocity.dy -= gravity
+    }
+    
+    public func draw() {
+        let r = NSRect(x: position.x - size/2, y: position.y - size/2, width: size, height: size)
+        let p = NSBezierPath(ovalIn: r)
+        
+        color.setFill()
+        p.fill()
+    }
+    
+    public func getPos() -> CGPoint {return position}
 }
 
 // https://stackoverflow.com/questions/31699235/rotate-nsimage-in-swift-cocoa-mac-osx
