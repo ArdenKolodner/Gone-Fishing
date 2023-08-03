@@ -78,6 +78,12 @@ class GoneFishingView: ScreenSaverView {
     
     private var clouds: [Cloud]
     
+    private var droplets: [Droplet]
+    private let splashVarianceXLower: CGFloat = -1.0
+    private let splashVarianceXUpper: CGFloat = 2.0
+    private let splashVarianceYLower: CGFloat = 0.5
+    private let splashVarianceYUpper: CGFloat = 1.0
+    
     private let water: SimulatedWater
     
     private var fish: [Fish]
@@ -123,6 +129,8 @@ class GoneFishingView: ScreenSaverView {
         fish = []
         
         counters = []
+        
+        droplets = []
         
         water = SimulatedWater(frame: frame, waterLevel: waterLevel, waterColor: oceanColor)
     
@@ -233,17 +241,13 @@ class GoneFishingView: ScreenSaverView {
 //        oceanPath.fill()
         water.draw()
         
-        for cloud in clouds {
-            cloud.draw()
-        }
+        for droplet in droplets {droplet.draw()}
         
-        for f in fish {
-            f.draw()
-        }
+        for cloud in clouds {cloud.draw()}
         
-        for c in counters {
-            c.draw()
-        }
+        for f in fish {f.draw()}
+        
+        for c in counters {c.draw()}
         
         if hookPos != nil && hookVel != nil {
             let hookRect = NSRect(origin: hookPos!, size: hookImg!.size)
@@ -297,6 +301,25 @@ class GoneFishingView: ScreenSaverView {
         
         for dead in deadClouds {
             clouds[dead] = Cloud(pos: randomCloudPos())
+        }
+        
+//        for i in 0...droplets.count-1 {
+//            droplets[i].animate()
+//            let p = droplets[i].getPos()
+//            if p.x > frame.width || p.x < 0 || p.y < 0 {
+//                droplets.remove(at: i)
+//            }
+//        }
+        if droplets.count > 0 {
+            var livingDroplets: [Droplet] = []
+            for i in 0...droplets.count-1 {
+                droplets[i].animate()
+                let p = droplets[i].getPos()
+                if !(p.x > frame.width || p.x < 0 || p.y < 0) {
+                    livingDroplets.append(droplets[i])
+                }
+            }
+            droplets = livingDroplets
         }
         
         for fish in fish {
@@ -358,6 +381,14 @@ class GoneFishingView: ScreenSaverView {
             if hookPos!.y < waterLevel && !wasUnderwaterLast {
                 // Make water splash
                 water.perturb(x: visualHookPos()!.x, intensity: abs(hookVel!.dy))
+                
+                for _ in 1...Int.random(in: 7...15) {
+                    droplets.append(
+                        Droplet(
+                            position: visualHookPos()!, velocity: randomDropletVel(), color: oceanColor
+                        )
+                    )
+                }
             }
             
             if hookPos!.y < waterLevel {
@@ -465,6 +496,13 @@ class GoneFishingView: ScreenSaverView {
         }
         
         return min - 100
+    }
+    
+    func randomDropletVel() -> CGVector {
+        return CGVector(
+            dx: hookVel!.dx * CGFloat.random(in: splashVarianceXLower...splashVarianceXUpper),
+            dy: abs(hookVel!.dy) * CGFloat.random(in: splashVarianceYLower...splashVarianceYUpper)
+        )
     }
 }
 
@@ -852,6 +890,40 @@ class Fish {
             }
         }
     }
+}
+
+class Droplet {
+    private var position: CGPoint
+    private var velocity: CGVector
+    
+    private let size: CGFloat = 5
+    
+    private let gravity: CGFloat = 1
+    
+    private var color: NSColor
+    
+    init(position: CGPoint, velocity: CGVector, color: NSColor) {
+        self.position = position
+        self.velocity = velocity
+        self.color = color
+    }
+    
+    public func animate() {
+        position.x += velocity.dx
+        position.y += velocity.dy
+        
+        velocity.dy -= gravity
+    }
+    
+    public func draw() {
+        let r = NSRect(x: position.x - size/2, y: position.y - size/2, width: size, height: size)
+        let p = NSBezierPath(ovalIn: r)
+        
+        color.setFill()
+        p.fill()
+    }
+    
+    public func getPos() -> CGPoint {return position}
 }
 
 // https://stackoverflow.com/questions/31699235/rotate-nsimage-in-swift-cocoa-mac-osx
