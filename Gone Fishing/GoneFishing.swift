@@ -144,7 +144,7 @@ class GoneFishingView: ScreenSaverView {
         
         let numClouds = Int.random(in: 7...12)
         for i in 1...numClouds {
-            let c = Cloud(pos: randomCloudPos())
+            let c = Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1))
             c.position.x = frame.width * CGFloat(i) / CGFloat(numClouds)
             clouds.append(c)
         }
@@ -284,7 +284,7 @@ class GoneFishingView: ScreenSaverView {
         }
         
         for dead in deadClouds {
-            clouds[dead] = Cloud(pos: randomCloudPos())
+            clouds[dead] = Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1))
         }
         
 //        for i in 0...droplets.count-1 {

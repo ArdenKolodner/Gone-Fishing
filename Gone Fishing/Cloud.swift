@@ -9,13 +9,21 @@ import ScreenSaver
 
 class Cloud {
     private var speed: CGFloat = 1
-    private let color = randomCloudColor()
+    
+    private let depth: CGFloat
+    private let color: NSColor
+    private let minColor = 0.7
     
     public var position: CGPoint
     private var rects: [NSRect] = []
     
-    init(pos: CGPoint) {
-        position = pos
+    init(pos: CGPoint, depth: CGFloat) {
+        self.position = pos
+        self.depth = depth
+        self.color = NSColor(
+            white: depth * (1 - minColor) + minColor,
+            alpha: 1
+        )
         
         for _ in 1...Int.random(in: 5...10) {
             rects.append(NSRect(origin: getRandomOffset(), size: getRandomSize()))
