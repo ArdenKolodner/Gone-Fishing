@@ -67,7 +67,7 @@ class SimulatedWater {
             let netDisp = dispFromLeft + dispFromRight + returnForce
             
             let accel = netDisp * accelSpeed
-            waterSpeeds[i] += accel
+            waterSpeeds[i] += accel + randomSmallAccel()
         }
         
         for i in 0...numPts {
@@ -105,5 +105,9 @@ class SimulatedWater {
         let closestPt = Int(round(x / pxPerPt))
         
         waterSpeeds[closestPt] -= intensity
+    }
+    
+    private func randomSmallAccel() -> CGFloat {
+        return CGFloat.random(in: -0.1...0.1)
     }
 }
