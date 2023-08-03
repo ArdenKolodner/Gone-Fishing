@@ -38,7 +38,6 @@
 		7A0954962A41573900222D65 = {
 			isa = PBXGroup;
 			children = (
-				7AAC013C2A7AFCBC00F443EE /* SimulatedWater.swift */,
 				7A03702F2A5313B600444F1E /* thumbnail.png */,
 				7A03702E2A5313B600444F1E /* thumbnail@2x.png */,
 				7A0954BF2A4162C900222D65 /* Media.xcassets */,
@@ -58,6 +57,7 @@
 		7A0954A22A41573900222D65 /* Gone Fishing */ = {
 			isa = PBXGroup;
 			children = (
+				7AAC013C2A7AFCBC00F443EE /* SimulatedWater.swift */,
 				7A0954AD2A41575E00222D65 /* GoneFishing.swift */,
 				7A0954AC2A41575E00222D65 /* Gone Fishing-Bridging-Header.h */,
 			);
