@@ -183,13 +183,6 @@ class GoneFishingView: ScreenSaverView {
     }
     
     func getBoatPos() -> CGPoint {
-//        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[boatImgIndex]!.size.height / 4)
-//
-//        if (boatImgIndex >= 1 && boatImgIndex <= 2) {
-//            basePos.y += boatImgs[boatImgIndex]!.size.height / 8
-//        }
-//
-//        return basePos
         return CGPoint(
             x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
             y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
@@ -197,13 +190,6 @@ class GoneFishingView: ScreenSaverView {
     }
     
     func getBoatPos(ind: Int) -> CGPoint {
-//        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[ind]!.size.height / 4)
-//
-//        if (ind >= 1 && ind <= 2) {
-//            basePos.y += boatImgs[ind]!.size.height / 8
-//        }
-//
-//        return basePos
         return CGPoint(
             x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
             y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
@@ -228,8 +214,6 @@ class GoneFishingView: ScreenSaverView {
     // MARK: - Lifecycle
     override func draw(_ rect: NSRect) {
         // Draw a single frame in this function
-//        let oceanRect = NSRect(origin: rect.origin, size: CGSize(width: rect.width, height: rect.height - waterLevel))
-//        let skyRect = NSRect(origin: CGPoint(x: rect.origin.x, y: rect.origin.y + waterLevel), size: CGSize(width: rect.width, height: waterLevel))
         let skyRect = rect
         
         let skyPath = NSBezierPath(rect: skyRect)
@@ -378,7 +362,7 @@ class GoneFishingView: ScreenSaverView {
             hookPos!.x += hookVel!.dx
             hookPos!.y += hookVel!.dy
             
-            if hookPos!.y < waterLevel && !wasUnderwaterLast {
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) && !wasUnderwaterLast {
                 // Make water splash
                 water.perturb(x: visualHookPos()!.x, intensity: abs(hookVel!.dy))
                 
@@ -391,13 +375,13 @@ class GoneFishingView: ScreenSaverView {
                 }
             }
             
-            if hookPos!.y < waterLevel {
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) {
                 wasUnderwaterLast = true
             } else {
                 wasUnderwaterLast = false;
             }
             
-            if hookPos!.y > waterLevel {
+            if hookPos!.y > water.getWaterLevelAt(x: hookPos!.x) {
                 hookVel!.dy -= gravity
             } else {
                 hookVel!.dy *= 0.97
@@ -409,7 +393,7 @@ class GoneFishingView: ScreenSaverView {
             if hookPos!.y > frame.height {hookVel!.dy = 0; hookPos!.y = frame.height}
             
             // If hook just hit water
-            if hookPos!.y < waterLevel && !wasUnderwaterBefore {
+            if hookPos!.y < water.getWaterLevelAt(x: hookPos!.x) && !wasUnderwaterBefore {
                 wasUnderwaterBefore = true
                 
                 timesUnderwater += 1

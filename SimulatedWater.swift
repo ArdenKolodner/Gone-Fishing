@@ -111,6 +111,16 @@ class SimulatedWater {
         return CGPoint(x: waterXPts[index], y: waterYPts[index])
     }
     
+    public func getWaterLevelAt(x: CGFloat) -> CGFloat {
+        let closestPt = Int(round(x / pxPerPt))
+        
+        return waterYPts[closestPt]
+    }
+    
+    public func getWaterLevelAt(pos: CGPoint) -> CGFloat {
+        return getWaterLevelAt(x: pos.x)
+    }
+    
     private func randomSmallAccel() -> CGFloat {
         return CGFloat.random(in: -0.1...0.1)
     }
