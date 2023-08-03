@@ -19,7 +19,7 @@ class SimulatedWater {
     private let numPts: Int
     
     private let returnForceCoeff: CGFloat = 0.001
-    private let accelSpeed = 0.03
+    private let accelSpeed = 0.05
     private let dampeningCoeff = 0.95
                 
     private var waterXPts: [CGFloat]
@@ -81,7 +81,14 @@ class SimulatedWater {
         path.move(to: NSPoint(x: waterXPts[0], y: waterYPts[0]))
         
         for i in 1...numPts {
-            path.line(to: NSPoint(x: waterXPts[i], y: waterYPts[i]))
+            let pt1 = NSPoint(
+                x: waterXPts[i-1] * 0.75 + waterXPts[i] * 0.25,
+                y: waterYPts[i-1])
+            let pt2 = NSPoint(
+                x: waterXPts[i-1] * 0.25 + waterXPts[i] * 0.75,
+                y: waterYPts[i])
+            
+            path.curve(to: NSPoint(x: waterXPts[i], y: waterYPts[i]), controlPoint1: pt1, controlPoint2: pt2)
         }
         
         path.line(to: NSPoint(x: frame.width, y: 0))

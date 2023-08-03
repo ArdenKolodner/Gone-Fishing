@@ -358,6 +358,17 @@ class GoneFishingView: ScreenSaverView {
             hookPos!.x += hookVel!.dx
             hookPos!.y += hookVel!.dy
             
+            if hookPos!.y < waterLevel && !wasUnderwaterLast {
+                // Make water splash
+                water.perturb(x: visualHookPos()!.x, intensity: abs(hookVel!.dy))
+            }
+            
+            if hookPos!.y < waterLevel {
+                wasUnderwaterLast = true
+            } else {
+                wasUnderwaterLast = false;
+            }
+            
             if hookPos!.y > waterLevel {
                 hookVel!.dy -= gravity
             } else {
@@ -381,17 +392,6 @@ class GoneFishingView: ScreenSaverView {
                     hookVel!.dx *= waterDragCoefficient
                     hookVel!.dy = -underwaterSpeed
                 }
-            }
-            
-            if hookPos!.y < waterLevel && !wasUnderwaterLast {
-                // Make water splash
-                water.perturb(x: visualHookPos()!.x, intensity: wasUnderwaterBefore ? 4 : 6)
-            }
-            
-            if hookPos!.y < waterLevel {
-                wasUnderwaterLast = true
-            } else {
-                wasUnderwaterLast = false;
             }
             break;
         case .ReelIn:
