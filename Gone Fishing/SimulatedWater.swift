@@ -18,7 +18,7 @@ class SimulatedWater {
     private let pxPerPt: CGFloat = 20
     private let numPts: Int
     
-    private let returnForceCoeff: CGFloat = 0.001
+    private let returnForceCoeff: CGFloat = 1
     private let accelSpeed = 0.05
     private let dampeningCoeff = 0.95
                 
