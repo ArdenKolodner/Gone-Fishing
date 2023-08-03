@@ -107,6 +107,10 @@ class SimulatedWater {
         waterSpeeds[closestPt] -= intensity
     }
     
+    public func getPtPos(index: Int) -> CGPoint {
+        return CGPoint(x: waterXPts[index], y: waterYPts[index])
+    }
+    
     private func randomSmallAccel() -> CGFloat {
         return CGFloat.random(in: -0.1...0.1)
     }

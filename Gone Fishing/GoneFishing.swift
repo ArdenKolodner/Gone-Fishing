@@ -45,9 +45,6 @@ class GoneFishingView: ScreenSaverView {
     
     private var waterLevel: CGFloat
     
-    private let boatBobIntensity: CGFloat = 1.2
-    private let boatBobSpeed: CGFloat = 0.8
-    
     private var gravity: CGFloat = 0.5
     private var underwaterSpeed: CGFloat = 7
     private var waterDragCoefficient: CGFloat = 0.9
@@ -58,6 +55,12 @@ class GoneFishingView: ScreenSaverView {
         CGVector(dx: 75, dy: 30),
         CGVector(dx: 220, dy: 50),
         CGVector(dx: 220, dy: 50)
+    ]
+    
+    private var boatOffsets = [
+        CGPoint(x: 0, y: -25),
+        CGPoint(x: 0, y: -25),
+        CGPoint(x: 0, y: -25)
     ]
     
     private var stringOffset = CGVector(dx: 8, dy: 12)
@@ -164,7 +167,7 @@ class GoneFishingView: ScreenSaverView {
     }
     
     public func fisherPos() -> CGPoint {
-        let p = getBoatFloatPos()
+        let p = getBoatPos()
         return CGPoint(
             x: p.x + fisherOffsets[boatImgIndex].dx,
             y: p.y + fisherOffsets[boatImgIndex].dy
@@ -172,37 +175,31 @@ class GoneFishingView: ScreenSaverView {
     }
     
     func getBoatPos() -> CGPoint {
-        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[boatImgIndex]!.size.height / 4)
-        
-        if (boatImgIndex >= 1 && boatImgIndex <= 2) {
-            basePos.y += boatImgs[boatImgIndex]!.size.height / 8
-        }
-        
-        return basePos
+//        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[boatImgIndex]!.size.height / 4)
+//
+//        if (boatImgIndex >= 1 && boatImgIndex <= 2) {
+//            basePos.y += boatImgs[boatImgIndex]!.size.height / 8
+//        }
+//
+//        return basePos
+        return CGPoint(
+            x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
+            y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
+        )
     }
     
     func getBoatPos(ind: Int) -> CGPoint {
-        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[ind]!.size.height / 4)
-        
-        if (ind >= 1 && ind <= 2) {
-            basePos.y += boatImgs[ind]!.size.height / 8
-        }
-        
-        return basePos
-    }
-    
-    func getBoatFloatPos() -> CGPoint {
-        let nsec = Calendar.current.component(.nanosecond, from: Date.now)
-        let conversionFactor = CGFloat(1000000000)
-        let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
-        return CGPoint(x: getBoatPos().x, y: getBoatPos().y + boatBobIntensity*sin(CGFloat(nsec) / period))
-    }
-    
-    func getBoatFloatPos(ind: Int) -> CGPoint {
-        let nsec = Calendar.current.component(.nanosecond, from: Date.now)
-        let conversionFactor = CGFloat(1000000000)
-        let period = conversionFactor / (CGFloat(2 * CGFloat.pi) * boatBobSpeed)
-        return CGPoint(x: getBoatPos(ind: ind).x, y: getBoatPos(ind: ind).y + boatBobIntensity*sin(CGFloat(nsec) / period))
+//        var basePos = CGPoint(x: frame.width / 6, y: waterLevel - boatImgs[ind]!.size.height / 4)
+//
+//        if (ind >= 1 && ind <= 2) {
+//            basePos.y += boatImgs[ind]!.size.height / 8
+//        }
+//
+//        return basePos
+        return CGPoint(
+            x: water.getPtPos(index: 10).x + boatOffsets[boatImgIndex].x,
+            y: water.getPtPos(index: 10).y + boatOffsets[boatImgIndex].y
+        )
     }
     
     public func notifyOnHook() {
@@ -263,13 +260,13 @@ class GoneFishingView: ScreenSaverView {
         
         if boatImgs[boatImgIndex] != nil {
             let boatImg = boatImgs[boatImgIndex]
-            let boatRect = NSRect(origin: getBoatFloatPos(), size: boatImgs[boatImgIndex]!.size)
+            let boatRect = NSRect(origin: getBoatPos(), size: boatImgs[boatImgIndex]!.size)
             
             if (phase == .SwitchShip && delayStart != nil) {
                 let pctDone = Date.now.timeIntervalSince(delayStart!) / Double(SWITCH_LENGTH_SEC)
                 boatImg!.draw(in: boatRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: pctDone)
                 
-                let oldRect = NSRect(origin: getBoatFloatPos(ind: boatImgIndex-1), size: boatImgs[boatImgIndex-1]!.size)
+                let oldRect = NSRect(origin: getBoatPos(ind: boatImgIndex-1), size: boatImgs[boatImgIndex-1]!.size)
                 
                 boatImgs[boatImgIndex-1]!.draw(in: oldRect, from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: 1-pctDone)
             } else {
