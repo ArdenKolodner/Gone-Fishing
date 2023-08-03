@@ -147,6 +147,7 @@ class GoneFishingView: ScreenSaverView {
             let c = Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1))
             c.position.x = frame.width * CGFloat(i) / CGFloat(numClouds)
             clouds.append(c)
+            sortClouds()
         }
         
         let numFish = Int.random(in: 5...20)
@@ -163,6 +164,12 @@ class GoneFishingView: ScreenSaverView {
         let xVelocity = CGFloat.random(in: (dvm / 6) ... (5 * dvm / 6))
         let yVelocity = sqrt(pow(dvm, 2) - pow(xVelocity, 2))
         return CGVector(dx: xVelocity, dy: yVelocity)
+    }
+    
+    private func sortClouds() {
+        clouds.sort {
+            return $0.getDepth() < $1.getDepth()
+        }
     }
 
     @available(*, unavailable)
@@ -285,6 +292,7 @@ class GoneFishingView: ScreenSaverView {
         
         for dead in deadClouds {
             clouds[dead] = Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1))
+            sortClouds()
         }
         
 //        for i in 0...droplets.count-1 {

@@ -42,15 +42,13 @@ class Cloud {
         position.x -= speed
     }
     
+    public func getDepth() -> CGFloat {return depth}
+    
     func getRandomOffset() -> CGPoint {
         return CGPoint(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -20...20))
     }
     
     func getRandomSize() -> CGSize {
         return CGSize(width: CGFloat.random(in: 60...200), height: CGFloat.random(in: 10...50))
-    }
-    
-    private static func randomCloudColor() -> NSColor {
-        return NSColor(white: CGFloat.random(in: 0.8...1), alpha: 1)
     }
 }
