@@ -426,6 +426,11 @@ class GoneFishingView: ScreenSaverView {
                     }
                 }
                 
+                if phase == .ReelIn {
+                    // If the fish left the hook while reeling in, the code block above did not run, but we still need to switch back to the Delay phase
+                    phase = .Delay
+                }
+                
                 resetVars()
             } else {
                 let hookMoveVec_norm = CGVector(dx: hookMoveVec.dx / magnitude, dy: hookMoveVec.dy / magnitude)
