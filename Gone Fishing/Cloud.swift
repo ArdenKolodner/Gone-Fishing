@@ -9,6 +9,7 @@ import ScreenSaver
 
 class Cloud {
     private var speed: CGFloat = 1
+    private let color = randomCloudColor()
     
     public var position: CGPoint
     private var rects: [NSRect] = []
@@ -22,7 +23,7 @@ class Cloud {
     }
     
     public func draw() {
-        NSColor.white.setFill()
+        color.setFill()
         for rect in rects {
             let path = NSBezierPath(ovalIn: NSRect(x: position.x + rect.origin.x, y: position.y + rect.origin.y, width: rect.size.width, height: rect.size.height))
             path.fill()
@@ -39,5 +40,9 @@ class Cloud {
     
     func getRandomSize() -> CGSize {
         return CGSize(width: CGFloat.random(in: 60...200), height: CGFloat.random(in: 10...50))
+    }
+    
+    private static func randomCloudColor() -> NSColor {
+        return NSColor(white: CGFloat.random(in: 0.8...1), alpha: 1)
     }
 }
