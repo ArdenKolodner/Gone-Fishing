@@ -17,6 +17,7 @@
 		7AFC67C22A7C67B500AF62B7 /* FishCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC67C12A7C67B500AF62B7 /* FishCountView.swift */; };
 		7AFC67C42A7C67CA00AF62B7 /* Droplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC67C32A7C67CA00AF62B7 /* Droplet.swift */; };
 		7AFC67C62A7C67E100AF62B7 /* NSImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC67C52A7C67E100AF62B7 /* NSImageExtensions.swift */; };
+		7AFC67C82A7C79AC00AF62B7 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFC67C72A7C79AC00AF62B7 /* WeatherManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7AFC67C12A7C67B500AF62B7 /* FishCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FishCountView.swift; sourceTree = "<group>"; };
 		7AFC67C32A7C67CA00AF62B7 /* Droplet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Droplet.swift; sourceTree = "<group>"; };
 		7AFC67C52A7C67E100AF62B7 /* NSImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImageExtensions.swift; sourceTree = "<group>"; };
+		7AFC67C72A7C79AC00AF62B7 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				7AFC67C12A7C67B500AF62B7 /* FishCountView.swift */,
 				7AFC67C32A7C67CA00AF62B7 /* Droplet.swift */,
 				7AFC67C52A7C67E100AF62B7 /* NSImageExtensions.swift */,
+				7AFC67C72A7C79AC00AF62B7 /* WeatherManager.swift */,
 			);
 			path = "Gone Fishing";
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				7A0954AE2A41575E00222D65 /* GoneFishing.swift in Sources */,
 				7AFC67C22A7C67B500AF62B7 /* FishCountView.swift in Sources */,
+				7AFC67C82A7C79AC00AF62B7 /* WeatherManager.swift in Sources */,
 				7AFC67C62A7C67E100AF62B7 /* NSImageExtensions.swift in Sources */,
 				7AFC67C02A7C679300AF62B7 /* Cloud.swift in Sources */,
 				7AFC67BE2A7C673C00AF62B7 /* Fish.swift in Sources */,

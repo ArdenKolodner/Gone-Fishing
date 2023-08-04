@@ -31,7 +31,7 @@ class Cloud {
     }
     
     public func draw() {
-        color.setFill()
+        getColor().setFill()
         for rect in rects {
             let path = NSBezierPath(ovalIn: NSRect(x: position.x + rect.origin.x, y: position.y + rect.origin.y, width: rect.size.width, height: rect.size.height))
             path.fill()
@@ -50,5 +50,9 @@ class Cloud {
     
     func getRandomSize() -> CGSize {
         return CGSize(width: CGFloat.random(in: 60...200), height: CGFloat.random(in: 10...50))
+    }
+    
+    private func getColor() -> NSColor {
+        return color.blended(withFraction: 1-WeatherManager.getCloudShadeMultiplier(), of: NSColor.black)!
     }
 }

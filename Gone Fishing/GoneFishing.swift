@@ -77,7 +77,7 @@ class GoneFishingView: ScreenSaverView {
     private var reelInStart = Date()
     
     private var clouds: [Cloud]
-    
+        
     private var droplets: [Droplet]
     private let splashVarianceXLower: CGFloat = -1.0
     private let splashVarianceXUpper: CGFloat = 2.0
@@ -133,6 +133,9 @@ class GoneFishingView: ScreenSaverView {
         droplets = []
         
         water = SimulatedWater(frame: frame, waterLevel: waterLevel, waterColor: oceanColor)
+        
+        let startingWeatherRoll = Int.random(in: 1...3)
+        WeatherManager.setStartingWeather(start: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
     
         super.init(frame: frame, isPreview: isPreview)
         
@@ -277,6 +280,8 @@ class GoneFishingView: ScreenSaverView {
 
     override func animateOneFrame() {
         super.animateOneFrame()
+        
+        WeatherManager.animate()
         
         water.animateFrame()
         
