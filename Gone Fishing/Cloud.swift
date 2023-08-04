@@ -53,6 +53,9 @@ class Cloud {
     }
     
     private func getColor() -> NSColor {
-        return color.blended(withFraction: 1-WeatherManager.getCloudShadeMultiplier(), of: NSColor.black)!
+        // Darken cloud's color by a percent determined by the weather
+        // For intuivitity, the fraction returned is the fractional brightness, so we could either blend the color by 1-frac of black,
+        // or blend black by (frac) of the color, all of which result in shading the color by (1-frac) of black
+        return NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: color)!
     }
 }
