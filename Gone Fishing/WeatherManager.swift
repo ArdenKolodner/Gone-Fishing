@@ -30,7 +30,7 @@ class WeatherManager {
     private static var transitionPrevious = Weather.None
     private static var transitionTarget = Weather.None
     
-    private static var transitionTimeStart = Date.now // Initial value not used but has to be set to something
+    private static var transitionTimeStart: Date?
     private static let weatherTransitionTime: CGFloat = 5 // in seconds
     
     @available(*, unavailable) private init() {}
@@ -59,15 +59,18 @@ class WeatherManager {
         case .Stormy:
             return weatherCloudShades[currentWeather]!
         case .Transition:
-            let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart) / weatherTransitionTime
+            let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart!) / weatherTransitionTime
             return weatherCloudShades[transitionTarget]! * transitionProgress + weatherCloudShades[transitionPrevious]! * (1-transitionProgress)
         }
     }
     
     public static func animate() {
-        let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart) / weatherTransitionTime
-        if transitionProgress >= 1 {
-            currentWeather = transitionTarget
+        if transitionTimeStart != nil {
+            let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart!) / weatherTransitionTime
+            if transitionProgress >= 1 {
+                currentWeather = transitionTarget
+                transitionTimeStart = nil
+            }
         }
     }
 }

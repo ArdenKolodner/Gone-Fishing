@@ -89,7 +89,10 @@ class GoneFishingView: ScreenSaverView {
     private var fish: [Fish]
     private var fishToDespawn: Int?
     private var fishSpawnEventTimer: Date?
-    private var fishSpawnEventInterval: CGFloat = 10
+    private let fishSpawnEventInterval: CGFloat = 10
+    
+    private var weatherChangePrevious = Date.now
+    private let weatherChangeEventInterval: CGFloat = 6
     
     public var counterUpperLimit: CGFloat = 1000
     public var counterLowerLimit: CGFloat = 400
@@ -325,6 +328,13 @@ class GoneFishingView: ScreenSaverView {
         
         for counter in counters {
             counter.animate()
+        }
+        
+        if Date.now.timeIntervalSince(weatherChangePrevious) >= weatherChangeEventInterval {
+            weatherChangePrevious = Date.now
+            
+            let startingWeatherRoll = Int.random(in: 1...3)
+            WeatherManager.startTransitionTo(weather: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
         }
         
         if fishSpawnEventTimer == nil {

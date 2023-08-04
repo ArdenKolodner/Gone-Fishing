@@ -112,7 +112,9 @@ class SimulatedWater {
     }
     
     public func getWaterLevelAt(x: CGFloat) -> CGFloat {
-        let closestPt = Int(round(x / pxPerPt))
+        var closestPt = Int(round(x / pxPerPt))
+        if closestPt < 0 {closestPt = 0}
+        if closestPt > numPts {closestPt = numPts}
         
         return waterYPts[closestPt]
     }
