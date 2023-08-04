@@ -10,17 +10,18 @@ import ScreenSaver
 class Droplet {
     private var position: CGPoint
     private var velocity: CGVector
-    
-    private let size: CGFloat = 5
-    
+        
     private let gravity: CGFloat = 1
+    
+    private let size: CGFloat
     
     private var color: NSColor
     
-    init(position: CGPoint, velocity: CGVector, color: NSColor) {
+    init(position: CGPoint, velocity: CGVector, color: NSColor, size: CGFloat) {
         self.position = position
         self.velocity = velocity
         self.color = color
+        self.size = size
     }
     
     public func animate() {

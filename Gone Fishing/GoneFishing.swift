@@ -105,6 +105,9 @@ class GoneFishingView: ScreenSaverView {
     private let skyColor = NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1)
     private let oceanColor = NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1)
     
+    private let splashDropSize: CGFloat = 5
+    private let rainDropSize: CGFloat = 2
+    
     public func getFrame() -> NSRect {return frame}
     
     public func getPhase() -> Phase {return phase}
@@ -392,7 +395,10 @@ class GoneFishingView: ScreenSaverView {
                 for _ in 1...Int.random(in: 7...15) {
                     droplets.append(
                         Droplet(
-                            position: visualHookPos()!, velocity: randomDropletVel(), color: oceanColor
+                            position: visualHookPos()!,
+                            velocity: randomDropletVel(),
+                            color: oceanColor,
+                            size: splashDropSize
                         )
                     )
                 }
