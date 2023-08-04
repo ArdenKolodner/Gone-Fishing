@@ -17,6 +17,9 @@ class Cloud {
     public var position: CGPoint
     private var rects: [NSRect] = []
     
+    private var lastRainTime = Date.now
+    private let rainInterval: CGFloat = 0.1
+    
     init(pos: CGPoint, depth: CGFloat) {
         self.position = pos
         self.depth = depth
@@ -42,7 +45,16 @@ class Cloud {
         position.x -= speed
     }
     
+    public func shouldDoRain() -> Bool {
+        if Date.now.timeIntervalSince(lastRainTime) > rainInterval {
+            lastRainTime = Date.now
+            return true
+        }
+        return false
+    }
+    
     public func getDepth() -> CGFloat {return depth}
+    public func getPos() -> CGPoint {return position}
     
     func getRandomOffset() -> CGPoint {
         return CGPoint(x: CGFloat.random(in: -50...50), y: CGFloat.random(in: -20...20))
@@ -50,6 +62,14 @@ class Cloud {
     
     func getRandomSize() -> CGSize {
         return CGSize(width: CGFloat.random(in: 60...200), height: CGFloat.random(in: 10...50))
+    }
+    
+    public func getRainPos() -> CGPoint {
+        let r = rects.randomElement()!
+        let o = r.origin
+        let offset = r.size.width * CGFloat.random(in: 0...1)
+        
+        return CGPoint(x: o.x + position.x + offset, y: o.y + position.y)
     }
     
     private func getColor() -> NSColor {

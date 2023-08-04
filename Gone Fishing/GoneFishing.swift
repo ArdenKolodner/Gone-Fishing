@@ -106,7 +106,7 @@ class GoneFishingView: ScreenSaverView {
     private let oceanColor = NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1)
     
     private let splashDropSize: CGFloat = 5
-    private let rainDropSize: CGFloat = 2
+    private let rainDropSize: CGFloat = 4
     
     public func getFrame() -> NSRect {return frame}
     
@@ -306,20 +306,31 @@ class GoneFishingView: ScreenSaverView {
             sortClouds()
         }
         
-//        for i in 0...droplets.count-1 {
-//            droplets[i].animate()
-//            let p = droplets[i].getPos()
-//            if p.x > frame.width || p.x < 0 || p.y < 0 {
-//                droplets.remove(at: i)
-//            }
-//        }
+        // If it's raining (including storming)
+        if [Weather.Rainy, Weather.Stormy].contains(WeatherManager.getWeather()) {
+            for cloud in clouds {
+                if cloud.shouldDoRain() {
+                    droplets.append(Droplet(
+                        position: cloud.getRainPos(),
+                        velocity: CGVector.zero,
+                        color: oceanColor,
+                        size: rainDropSize
+                    ))
+                }
+            }
+        }
+        
         if droplets.count > 0 {
             var livingDroplets: [Droplet] = []
             for i in 0...droplets.count-1 {
                 droplets[i].animate()
                 let p = droplets[i].getPos()
-                if !(p.x > frame.width || p.x < 0 || p.y < 0) {
+                if !(p.x > frame.width || p.x < 0 || p.y < water.getWaterLevelAt(pos: droplets[i].getPos())) {
+                    // If droplet is still in bounds, copy it to the list of living droplets. Otherwise, it will be deleted.
                     livingDroplets.append(droplets[i])
+                } else if p.x > 0 && p.x < frame.width {
+                    // If droplet went out of bounds by hitting the water (still in the right X range), perturb the water's surface
+                    water.perturb(x: p.x, intensity: 2)
                 }
             }
             droplets = livingDroplets
