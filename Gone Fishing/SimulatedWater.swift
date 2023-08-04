@@ -96,7 +96,8 @@ class SimulatedWater {
         
         path.close()
         
-        waterColor.setFill()
+        // Water color is shaded based on weather
+        NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)?.setFill()
         
         path.fill()
     }

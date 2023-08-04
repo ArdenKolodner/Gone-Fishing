@@ -233,12 +233,10 @@ class GoneFishingView: ScreenSaverView {
         let skyRect = rect
         
         let skyPath = NSBezierPath(rect: skyRect)
-//        let oceanPath = NSBezierPath(rect: oceanRect)
         
-        skyColor.setFill()
+        // Sky color is shaded based on weather
+        NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)?.setFill()
         skyPath.fill()
-//        oceanColor.setFill()
-//        oceanPath.fill()
         water.draw()
         
         for droplet in droplets {droplet.draw()}

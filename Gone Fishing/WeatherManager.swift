@@ -24,6 +24,15 @@ let weatherCloudShades: [Weather:CGFloat] = [
     .Stormy: 0.5,
 ]
 
+let weatherOceanShades: [Weather:CGFloat] = [
+    .None: CGFloat.nan, // Should not be used
+    .Transition: CGFloat.nan, // Should not be used, should be calculated by linear interpolation between transitionPrevious and transitionTarget
+    
+    .Clear: 1.0,
+    .Rainy: 0.9,
+    .Stormy: 0.8,
+]
+
 class WeatherManager {
     private static var currentWeather = Weather.None
     
@@ -63,6 +72,19 @@ class WeatherManager {
         case .Transition:
             let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart!) / weatherTransitionTime
             return weatherCloudShades[transitionTarget]! * transitionProgress + weatherCloudShades[transitionPrevious]! * (1-transitionProgress)
+        }
+    }
+    
+    public static func getOceanShadeMultiplier() -> CGFloat {
+        switch currentWeather {
+        case .None: fallthrough
+        case .Clear: fallthrough
+        case .Rainy: fallthrough
+        case .Stormy:
+            return weatherOceanShades[currentWeather]!
+        case .Transition:
+            let transitionProgress = Date.now.timeIntervalSince(transitionTimeStart!) / weatherTransitionTime
+            return weatherOceanShades[transitionTarget]! * transitionProgress + weatherOceanShades[transitionPrevious]! * (1-transitionProgress)
         }
     }
     
