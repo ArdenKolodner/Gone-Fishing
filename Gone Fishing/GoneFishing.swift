@@ -92,7 +92,7 @@ class GoneFishingView: ScreenSaverView {
     private let fishSpawnEventInterval: CGFloat = 10
     
     private var weatherChangePrevious = Date.now
-    private let weatherChangeEventInterval: CGFloat = 6
+    private let weatherChangeEventInterval: CGFloat = 10
     
     public var counterUpperLimit: CGFloat = 1000
     public var counterLowerLimit: CGFloat = 400

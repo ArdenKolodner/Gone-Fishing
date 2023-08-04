@@ -31,7 +31,7 @@ class WeatherManager {
     private static var transitionTarget = Weather.None
     
     private static var transitionTimeStart: Date?
-    private static let weatherTransitionTime: CGFloat = 5 // in seconds
+    private static let weatherTransitionTime: CGFloat = 3 // in seconds
     
     @available(*, unavailable) private init() {}
     
@@ -43,6 +43,8 @@ class WeatherManager {
     }
     
     public static func startTransitionTo(weather: Weather) {
+        if weather == currentWeather {return}
+        
         transitionPrevious = currentWeather
         transitionTarget = weather
         
