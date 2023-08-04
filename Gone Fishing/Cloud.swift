@@ -18,7 +18,8 @@ class Cloud {
     private var rects: [NSRect] = []
     
     private var lastRainTime = Date.now
-    private let rainInterval: CGFloat = 0.1
+    private let rainInterval_rainy: CGFloat = 0.1
+    private let rainInterval_stormy: CGFloat = 0.06
     
     init(pos: CGPoint, depth: CGFloat) {
         self.position = pos
@@ -46,7 +47,7 @@ class Cloud {
     }
     
     public func shouldDoRain() -> Bool {
-        if Date.now.timeIntervalSince(lastRainTime) > rainInterval {
+        if Date.now.timeIntervalSince(lastRainTime) > getRainInterval() {
             lastRainTime = Date.now
             return true
         }
@@ -77,5 +78,13 @@ class Cloud {
         // For intuivitity, the fraction returned is the fractional brightness, so we could either blend the color by 1-frac of black,
         // or blend black by (frac) of the color, all of which result in shading the color by (1-frac) of black
         return NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: color)!
+    }
+    
+    private func getRainInterval() -> CGFloat {
+        switch WeatherManager.getWeather() {
+        case .Rainy: return rainInterval_rainy
+        case .Stormy: return rainInterval_stormy
+        default: return CGFloat.nan
+        }
     }
 }
