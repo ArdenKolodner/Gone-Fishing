@@ -105,6 +105,12 @@ class GoneFishingView: ScreenSaverView {
     private let skyColor = NSColor(red: 0.52, green: 0.81, blue: 0.92, alpha: 1)
     private let oceanColor = NSColor(red: 0.03, green: 0.23, blue: 0.81, alpha: 1)
     
+    private var skyGradient: NSGradient
+    private var gradientColor: NSColor
+    private let skyGradientFraction = 0.2 // Fraction of WHOLE SCREEN that is the sky gradient. Rest has sky color drawn flat. The performance hit is way too big to draw the gradient across the whole screen.
+    private let flatRect: NSRect
+    private let gradientRect: NSRect
+    
     private let splashDropSize: CGFloat = 5
     private let rainDropSize: CGFloat = 4
     
@@ -142,6 +148,13 @@ class GoneFishingView: ScreenSaverView {
         
         let startingWeatherRoll = Int.random(in: 1...3)
         WeatherManager.setStartingWeather(start: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
+        
+        skyGradient = NSGradient(starting: skyColor, ending: NSColor.gray)!
+        gradientColor = skyColor
+        flatRect = NSRect(x: 0, y: 0, width: frame.width,
+                          height: frame.height * (1-skyGradientFraction))
+        gradientRect = NSRect(x: 0, y: flatRect.height, width: frame.width,
+                                  height: frame.height * skyGradientFraction)
     
         super.init(frame: frame, isPreview: isPreview)
         
@@ -230,13 +243,15 @@ class GoneFishingView: ScreenSaverView {
     // MARK: - Lifecycle
     override func draw(_ rect: NSRect) {
         // Draw a single frame in this function
-        let skyRect = rect
         
-        let skyPath = NSBezierPath(rect: skyRect)
+        let color = NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)!
+        if color != gradientColor {
+            gradientColor = color
+            skyGradient = NSGradient(starting: color, ending: NSColor.gray)!
+        }
         
-        // Sky color is shaded based on weather
-        NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)?.setFill()
-        skyPath.fill()
+        color.drawSwatch(in: flatRect)
+        skyGradient.draw(in: gradientRect, angle: 90)
         
         water.draw()
         
