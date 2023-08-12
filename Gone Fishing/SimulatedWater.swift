@@ -30,6 +30,10 @@ class SimulatedWater {
     private var waterGradient: NSGradient
     private var gradientColor: NSColor
     
+    private let flatColorFrac = 0.2 // This fraction of the screen is drawn by the gradient, the rest is flat
+    private let gradientRect: NSRect
+    private let gradientBlackFrac = 0.4 // This much black is blended with the water color at the bottom of the screen
+    
     init(frame: NSRect, waterLevel: CGFloat, waterColor: NSColor) {
         self.frame = frame
         self.waterLevel = waterLevel
@@ -53,8 +57,14 @@ class SimulatedWater {
             self.waterSpeeds.append(0)
         }
         
-        self.waterGradient = NSGradient(starting: waterColor, ending: NSColor.black)!
+        self.waterGradient = NSGradient(
+            starting: waterColor,
+            ending: waterColor.blended(withFraction: gradientBlackFrac, of: NSColor.black)!
+        )!
         self.gradientColor = waterColor
+        
+        self.gradientRect = NSRect(x: 0, y: 0, width: frame.width,
+                                   height: frame.height * flatColorFrac)
     }
     
     public func animateFrame() {
@@ -97,8 +107,8 @@ class SimulatedWater {
             path.curve(to: NSPoint(x: waterXPts[i], y: waterYPts[i]), controlPoint1: pt1, controlPoint2: pt2)
         }
         
-        path.line(to: NSPoint(x: frame.width, y: 0))
-        path.line(to: NSPoint.zero)
+        path.line(to: NSPoint(x: frame.width, y: gradientRect.height))
+        path.line(to: NSPoint(x: 0, y: gradientRect.height))
         
         path.close()
         
@@ -107,13 +117,16 @@ class SimulatedWater {
         
         if color != self.gradientColor {
             self.gradientColor = color
-            self.waterGradient = NSGradient(starting: color, ending: NSColor.black)!
+            self.waterGradient = NSGradient(
+                starting: color,
+                ending: waterColor.blended(withFraction: gradientBlackFrac, of: NSColor.black)!
+            )!
         }
         
-        self.waterGradient.draw(in: path, angle: -90)
-//        NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)?.setFill()
-//
-//        path.fill()
+        color.setFill()
+        path.fill()
+        
+        self.waterGradient.draw(in: gradientRect, angle: -90)
     }
     
     public func perturb(x: CGFloat, intensity: CGFloat) {
