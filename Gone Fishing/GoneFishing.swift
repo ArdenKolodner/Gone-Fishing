@@ -94,6 +94,9 @@ class GoneFishingView: ScreenSaverView {
     private var weatherChangePrevious = Date.now
     private let weatherChangeEventInterval: CGFloat = 10
     
+    private var lightningPrevious = Date.now
+    private let lightningInterval: CGFloat = 2
+    
     public var counterUpperLimit: CGFloat = 1000
     public var counterLowerLimit: CGFloat = 400
     public var counterMargin: CGFloat = 200
@@ -341,6 +344,18 @@ class GoneFishingView: ScreenSaverView {
             }
         }
         
+        if WeatherManager.getWeather() == .Stormy {
+            if Date.now.timeIntervalSince(lightningPrevious) >= lightningInterval {
+                lightningPrevious = Date.now
+                
+                let c = clouds.randomElement()!
+                let waterHeight = water.getWaterLevelAt(pos: c.getPos())
+                
+                c.doLightning(waterHeight: waterHeight)
+                water.perturb(x: c.getPos().x, intensity: -40)
+            }
+        }
+        
         if droplets.count > 0 {
             var livingDroplets: [Droplet] = []
             for i in 0...droplets.count-1 {
@@ -364,7 +379,7 @@ class GoneFishingView: ScreenSaverView {
         for counter in counters {
             counter.animate()
         }
-        
+                
         if Date.now.timeIntervalSince(weatherChangePrevious) >= weatherChangeEventInterval {
             weatherChangePrevious = Date.now
             

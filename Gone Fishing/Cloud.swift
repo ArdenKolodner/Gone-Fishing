@@ -21,6 +21,10 @@ class Cloud {
     private let rainInterval_rainy: CGFloat = 0.1
     private let rainInterval_stormy: CGFloat = 0.06
     
+    private var lightning: Lightning? = nil // Optional type because creating a lightning bolt is expensive, and we want to avoid that
+    private var lightningBeginTime = Date.now
+    private let lightningDuration: CGFloat = 0.3
+    
     init(pos: CGPoint, depth: CGFloat) {
         self.position = pos
         self.depth = depth
@@ -40,10 +44,24 @@ class Cloud {
             let path = NSBezierPath(ovalIn: NSRect(x: position.x + rect.origin.x, y: position.y + rect.origin.y, width: rect.size.width, height: rect.size.height))
             path.fill()
         }
+        
+        lightning?.draw()
     }
     
     public func animate() {
         position.x -= speed
+        
+        if lightning != nil && Date.now.timeIntervalSince(lightningBeginTime) > lightningDuration {
+            lightning = nil
+        }
+    }
+    
+    public func doLightning(waterHeight: CGFloat) {
+        var target = getRainPos()
+        target = CGPoint(x: target.x, y: waterHeight)
+        lightning = Lightning(origin: getRainPos(), target: target)
+        
+        lightningBeginTime = Date.now
     }
     
     public func shouldDoRain() -> Bool {
