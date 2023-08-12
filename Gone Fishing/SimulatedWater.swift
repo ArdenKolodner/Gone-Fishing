@@ -27,6 +27,9 @@ class SimulatedWater {
     
     private var waterSpeeds: [CGFloat]
     
+    private var waterGradient: NSGradient
+    private var gradientColor: NSColor
+    
     init(frame: NSRect, waterLevel: CGFloat, waterColor: NSColor) {
         self.frame = frame
         self.waterLevel = waterLevel
@@ -49,6 +52,9 @@ class SimulatedWater {
         for _ in 0...numPts {
             self.waterSpeeds.append(0)
         }
+        
+        self.waterGradient = NSGradient(starting: waterColor, ending: NSColor.black)!
+        self.gradientColor = waterColor
     }
     
     public func animateFrame() {
@@ -99,8 +105,12 @@ class SimulatedWater {
         // Water color is shaded based on weather
         let color = NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)!
         
-        let gradient = NSGradient(starting: NSColor.black, ending: color)!
-        gradient.draw(in: path, angle: 90)
+        if color != self.gradientColor {
+            self.gradientColor = color
+            self.waterGradient = NSGradient(starting: color, ending: NSColor.black)!
+        }
+        
+        self.waterGradient.draw(in: path, angle: -90)
 //        NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)?.setFill()
 //
 //        path.fill()
