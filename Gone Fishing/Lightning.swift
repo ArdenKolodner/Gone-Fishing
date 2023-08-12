@@ -79,7 +79,7 @@ class Lightning {
             let path = NSBezierPath()
             path.move(to: line.p1)
             path.line(to: line.p2)
-            path.lineWidth = 2
+            path.lineWidth = 4
             
             NSColor.black.blended(
                 withFraction: line.intensity,
