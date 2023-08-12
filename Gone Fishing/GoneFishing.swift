@@ -108,6 +108,7 @@ class GoneFishingView: ScreenSaverView {
     private var skyGradient: NSGradient
     private var gradientColor: NSColor
     private let skyGradientFraction = 0.2 // Fraction of WHOLE SCREEN that is the sky gradient. Rest has sky color drawn flat. The performance hit is way too big to draw the gradient across the whole screen.
+    private let skyGradientBlackFrac = 0.3 // This much black is blended with the sky color at the top of the screen
     private let flatRect: NSRect
     private let gradientRect: NSRect
     
@@ -149,7 +150,10 @@ class GoneFishingView: ScreenSaverView {
         let startingWeatherRoll = Int.random(in: 1...3)
         WeatherManager.setStartingWeather(start: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
         
-        skyGradient = NSGradient(starting: skyColor, ending: NSColor.gray)!
+        skyGradient = NSGradient(
+            starting: skyColor,
+            ending: skyColor.blended(withFraction: skyGradientBlackFrac, of: NSColor.black)!
+        )!
         gradientColor = skyColor
         flatRect = NSRect(x: 0, y: 0, width: frame.width,
                           height: frame.height * (1-skyGradientFraction))
@@ -247,7 +251,10 @@ class GoneFishingView: ScreenSaverView {
         let color = NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)!
         if color != gradientColor {
             gradientColor = color
-            skyGradient = NSGradient(starting: color, ending: NSColor.gray)!
+            skyGradient = NSGradient(
+                starting: color,
+                ending: color.blended(withFraction: skyGradientBlackFrac, of: NSColor.black)!
+            )!
         }
         
         color.drawSwatch(in: flatRect)
