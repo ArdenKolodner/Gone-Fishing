@@ -115,6 +115,8 @@ class GoneFishingView: ScreenSaverView {
     private let splashDropSize: CGFloat = 5
     private let rainDropSize: CGFloat = 4
     
+    private let l: Lightning
+    
     public func getFrame() -> NSRect {return frame}
     
     public func getPhase() -> Phase {return phase}
@@ -146,6 +148,11 @@ class GoneFishingView: ScreenSaverView {
         droplets = []
         
         water = SimulatedWater(frame: frame, waterLevel: waterLevel, waterColor: oceanColor)
+        
+        l = Lightning(
+            origin: NSPoint(x: 300, y: 700),
+            target: NSPoint(x: 300, y: 300)
+        )
         
         let startingWeatherRoll = Int.random(in: 1...3)
         WeatherManager.setStartingWeather(start: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
@@ -303,6 +310,8 @@ class GoneFishingView: ScreenSaverView {
             NSColor.red.setFill()
 //            oceanPath.fill()
         }
+        
+        l.draw()
     }
 
     override func animateOneFrame() {
