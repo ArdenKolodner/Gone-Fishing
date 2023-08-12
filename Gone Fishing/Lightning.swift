@@ -12,8 +12,8 @@ import Foundation
 // Lightning is generated inside a 300-by-300 square, origin in top left, should be changed to fit target size
 // All points are relative to this, not the global frame
 class Lightning {
-    private let height: CGFloat
-    private let width: CGFloat
+//    private let height: CGFloat
+//    private let width: CGFloat
     
     private let subdivisionPasses = 6
     private let initialOffset: CGFloat = 250
@@ -32,13 +32,15 @@ class Lightning {
     
     private var offsetAmount: CGFloat
     
-    init(width: CGFloat, height: CGFloat) {
+    init(origin: NSPoint, target: NSPoint) {
         // ------ Initialize ------
-        self.height = height
-        self.width = width
+//        self.height = height
+//        self.width = width
         
-        self.origin = NSPoint(x: width/2, y: 0)
-        self.target = NSPoint(x: width/2, y: height)
+//        self.origin = NSPoint(x: width/2, y: 0)
+//        self.target = NSPoint(x: width/2, y: height)
+        self.origin = origin
+        self.target = target
         
         self.offsetAmount = initialOffset
         
@@ -65,7 +67,26 @@ class Lightning {
             lines = newLines
             self.offsetAmount /= 2
         } // subdivisionPasses
+        
+        // Sort lines so highest intensity lines are on top
+        lines.sort {
+            return $0.intensity < $1.intensity
+        }
     } // init
+    
+    public func draw() {
+        for line in lines {
+            let path = NSBezierPath()
+            path.move(to: line.p1)
+            path.line(to: line.p2)
+            
+            NSColor.white.blended(
+                withFraction: line.intensity,
+                of: NSColor.black
+            )!.setFill()
+            path.stroke()
+        }
+    }
     
     private func calcMidpoint(_ p1: NSPoint, _ p2: NSPoint) -> NSPoint {
         return NSPoint(
