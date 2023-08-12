@@ -97,9 +97,13 @@ class SimulatedWater {
         path.close()
         
         // Water color is shaded based on weather
-        NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)?.setFill()
+        let color = NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)!
         
-        path.fill()
+        let gradient = NSGradient(starting: NSColor.black, ending: color)!
+        gradient.draw(in: path, angle: 90)
+//        NSColor.black.blended(withFraction: WeatherManager.getOceanShadeMultiplier(), of: waterColor)?.setFill()
+//
+//        path.fill()
     }
     
     public func perturb(x: CGFloat, intensity: CGFloat) {

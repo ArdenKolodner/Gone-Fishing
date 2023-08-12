@@ -237,6 +237,7 @@ class GoneFishingView: ScreenSaverView {
         // Sky color is shaded based on weather
         NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)?.setFill()
         skyPath.fill()
+        
         water.draw()
         
         for droplet in droplets {droplet.draw()}
