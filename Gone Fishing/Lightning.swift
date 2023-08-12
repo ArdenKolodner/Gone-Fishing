@@ -117,7 +117,7 @@ class Lightning {
             x: p1.x + 2*dx,
             y: p1.y + 2*dy
            ),
-           intensity: previousIntensity / 2
+            intensity: previousIntensity / 1.2 // Dividing by too much results in black lines
         )
     }
     
