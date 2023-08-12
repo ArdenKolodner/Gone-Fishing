@@ -129,9 +129,9 @@ class GoneFishingView: ScreenSaverView {
         counterMargin = frame.height / 5
         
         boatImgs = [
-            assets?.image(forResource: "sailboat"),
-            assets?.image(forResource: "galleon"),
-            assets?.image(forResource: "galleon_insignia")
+            MediaLoader.loadImage("sailboat"),
+            MediaLoader.loadImage("galleon"),
+            MediaLoader.loadImage("galleon_insignia"),
         ]
         hookImg = assets?.image(forResource: "fishhook")
         

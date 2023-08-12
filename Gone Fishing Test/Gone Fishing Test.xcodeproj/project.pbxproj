@@ -1,0 +1,628 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A893B5C2A882D7B0085AEAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B5B2A882D7B0085AEAA /* AppDelegate.swift */; };
+		7A893B5E2A882D7B0085AEAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B5D2A882D7B0085AEAA /* ViewController.swift */; };
+		7A893B602A882D7C0085AEAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A893B5F2A882D7C0085AEAA /* Assets.xcassets */; };
+		7A893B632A882D7C0085AEAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A893B612A882D7C0085AEAA /* Main.storyboard */; };
+		7A893B6E2A882D7C0085AEAA /* Gone_Fishing_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B6D2A882D7C0085AEAA /* Gone_Fishing_TestTests.swift */; };
+		7A893B782A882D7C0085AEAA /* Gone_Fishing_TestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B772A882D7C0085AEAA /* Gone_Fishing_TestUITests.swift */; };
+		7A893B7A2A882D7C0085AEAA /* Gone_Fishing_TestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B792A882D7C0085AEAA /* Gone_Fishing_TestUITestsLaunchTests.swift */; };
+		7A893B912A882E130085AEAA /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B892A882E120085AEAA /* WeatherManager.swift */; };
+		7A893B922A882E130085AEAA /* GoneFishing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8A2A882E120085AEAA /* GoneFishing.swift */; };
+		7A893B932A882E130085AEAA /* Fish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8B2A882E120085AEAA /* Fish.swift */; };
+		7A893B942A882E130085AEAA /* Droplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8C2A882E120085AEAA /* Droplet.swift */; };
+		7A893B952A882E130085AEAA /* FishCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8D2A882E120085AEAA /* FishCountView.swift */; };
+		7A893B962A882E130085AEAA /* NSImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8E2A882E120085AEAA /* NSImageExtensions.swift */; };
+		7A893B972A882E130085AEAA /* SimulatedWater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B8F2A882E130085AEAA /* SimulatedWater.swift */; };
+		7A893B982A882E130085AEAA /* Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B902A882E130085AEAA /* Cloud.swift */; };
+		7A893B9A2A882E300085AEAA /* Lightning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B992A882E300085AEAA /* Lightning.swift */; };
+		7A893B9C2A882F5E0085AEAA /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A893B9B2A882F5E0085AEAA /* Media.xcassets */; };
+		7A893BA02A8831250085AEAA /* MediaLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A893B9F2A8831250085AEAA /* MediaLoader.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A893B6A2A882D7C0085AEAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A893B502A882D7B0085AEAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A893B572A882D7B0085AEAA;
+			remoteInfo = "Gone Fishing Test";
+		};
+		7A893B742A882D7C0085AEAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A893B502A882D7B0085AEAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A893B572A882D7B0085AEAA;
+			remoteInfo = "Gone Fishing Test";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7A893B582A882D7B0085AEAA /* Gone Fishing Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gone Fishing Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A893B5B2A882D7B0085AEAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7A893B5D2A882D7B0085AEAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7A893B5F2A882D7C0085AEAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7A893B622A882D7C0085AEAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A893B642A882D7C0085AEAA /* Gone_Fishing_Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gone_Fishing_Test.entitlements; sourceTree = "<group>"; };
+		7A893B692A882D7C0085AEAA /* Gone Fishing TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gone Fishing TestTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A893B6D2A882D7C0085AEAA /* Gone_Fishing_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gone_Fishing_TestTests.swift; sourceTree = "<group>"; };
+		7A893B732A882D7C0085AEAA /* Gone Fishing TestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gone Fishing TestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A893B772A882D7C0085AEAA /* Gone_Fishing_TestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gone_Fishing_TestUITests.swift; sourceTree = "<group>"; };
+		7A893B792A882D7C0085AEAA /* Gone_Fishing_TestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gone_Fishing_TestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7A893B892A882E120085AEAA /* WeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = "../../Gone Fishing/WeatherManager.swift"; sourceTree = "<group>"; };
+		7A893B8A2A882E120085AEAA /* GoneFishing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoneFishing.swift; path = "../../Gone Fishing/GoneFishing.swift"; sourceTree = "<group>"; };
+		7A893B8B2A882E120085AEAA /* Fish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fish.swift; path = "../../Gone Fishing/Fish.swift"; sourceTree = "<group>"; };
+		7A893B8C2A882E120085AEAA /* Droplet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Droplet.swift; path = "../../Gone Fishing/Droplet.swift"; sourceTree = "<group>"; };
+		7A893B8D2A882E120085AEAA /* FishCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FishCountView.swift; path = "../../Gone Fishing/FishCountView.swift"; sourceTree = "<group>"; };
+		7A893B8E2A882E120085AEAA /* NSImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSImageExtensions.swift; path = "../../Gone Fishing/NSImageExtensions.swift"; sourceTree = "<group>"; };
+		7A893B8F2A882E130085AEAA /* SimulatedWater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimulatedWater.swift; path = "../../Gone Fishing/SimulatedWater.swift"; sourceTree = "<group>"; };
+		7A893B902A882E130085AEAA /* Cloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cloud.swift; path = "../../Gone Fishing/Cloud.swift"; sourceTree = "<group>"; };
+		7A893B992A882E300085AEAA /* Lightning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lightning.swift; path = "../../Gone Fishing/Lightning.swift"; sourceTree = "<group>"; };
+		7A893B9B2A882F5E0085AEAA /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = ../../Media.xcassets; sourceTree = "<group>"; };
+		7A893B9F2A8831250085AEAA /* MediaLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaLoader.swift; path = "../../Gone Fishing/MediaLoader.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A893B552A882D7B0085AEAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B662A882D7C0085AEAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B702A882D7C0085AEAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A893B4F2A882D7B0085AEAA = {
+			isa = PBXGroup;
+			children = (
+				7A893B5A2A882D7B0085AEAA /* Gone Fishing Test */,
+				7A893B6C2A882D7C0085AEAA /* Gone Fishing TestTests */,
+				7A893B762A882D7C0085AEAA /* Gone Fishing TestUITests */,
+				7A893B592A882D7B0085AEAA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A893B592A882D7B0085AEAA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A893B582A882D7B0085AEAA /* Gone Fishing Test.app */,
+				7A893B692A882D7C0085AEAA /* Gone Fishing TestTests.xctest */,
+				7A893B732A882D7C0085AEAA /* Gone Fishing TestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A893B5A2A882D7B0085AEAA /* Gone Fishing Test */ = {
+			isa = PBXGroup;
+			children = (
+				7A893B9F2A8831250085AEAA /* MediaLoader.swift */,
+				7A893B9B2A882F5E0085AEAA /* Media.xcassets */,
+				7A893B992A882E300085AEAA /* Lightning.swift */,
+				7A893B902A882E130085AEAA /* Cloud.swift */,
+				7A893B8C2A882E120085AEAA /* Droplet.swift */,
+				7A893B8B2A882E120085AEAA /* Fish.swift */,
+				7A893B8D2A882E120085AEAA /* FishCountView.swift */,
+				7A893B8A2A882E120085AEAA /* GoneFishing.swift */,
+				7A893B8E2A882E120085AEAA /* NSImageExtensions.swift */,
+				7A893B8F2A882E130085AEAA /* SimulatedWater.swift */,
+				7A893B892A882E120085AEAA /* WeatherManager.swift */,
+				7A893B5B2A882D7B0085AEAA /* AppDelegate.swift */,
+				7A893B5D2A882D7B0085AEAA /* ViewController.swift */,
+				7A893B5F2A882D7C0085AEAA /* Assets.xcassets */,
+				7A893B612A882D7C0085AEAA /* Main.storyboard */,
+				7A893B642A882D7C0085AEAA /* Gone_Fishing_Test.entitlements */,
+			);
+			path = "Gone Fishing Test";
+			sourceTree = "<group>";
+		};
+		7A893B6C2A882D7C0085AEAA /* Gone Fishing TestTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A893B6D2A882D7C0085AEAA /* Gone_Fishing_TestTests.swift */,
+			);
+			path = "Gone Fishing TestTests";
+			sourceTree = "<group>";
+		};
+		7A893B762A882D7C0085AEAA /* Gone Fishing TestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7A893B772A882D7C0085AEAA /* Gone_Fishing_TestUITests.swift */,
+				7A893B792A882D7C0085AEAA /* Gone_Fishing_TestUITestsLaunchTests.swift */,
+			);
+			path = "Gone Fishing TestUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A893B572A882D7B0085AEAA /* Gone Fishing Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A893B7D2A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing Test" */;
+			buildPhases = (
+				7A893B542A882D7B0085AEAA /* Sources */,
+				7A893B552A882D7B0085AEAA /* Frameworks */,
+				7A893B562A882D7B0085AEAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Gone Fishing Test";
+			productName = "Gone Fishing Test";
+			productReference = 7A893B582A882D7B0085AEAA /* Gone Fishing Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7A893B682A882D7C0085AEAA /* Gone Fishing TestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A893B802A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing TestTests" */;
+			buildPhases = (
+				7A893B652A882D7C0085AEAA /* Sources */,
+				7A893B662A882D7C0085AEAA /* Frameworks */,
+				7A893B672A882D7C0085AEAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A893B6B2A882D7C0085AEAA /* PBXTargetDependency */,
+			);
+			name = "Gone Fishing TestTests";
+			productName = "Gone Fishing TestTests";
+			productReference = 7A893B692A882D7C0085AEAA /* Gone Fishing TestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7A893B722A882D7C0085AEAA /* Gone Fishing TestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A893B832A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing TestUITests" */;
+			buildPhases = (
+				7A893B6F2A882D7C0085AEAA /* Sources */,
+				7A893B702A882D7C0085AEAA /* Frameworks */,
+				7A893B712A882D7C0085AEAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A893B752A882D7C0085AEAA /* PBXTargetDependency */,
+			);
+			name = "Gone Fishing TestUITests";
+			productName = "Gone Fishing TestUITests";
+			productReference = 7A893B732A882D7C0085AEAA /* Gone Fishing TestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A893B502A882D7B0085AEAA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					7A893B572A882D7B0085AEAA = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					7A893B682A882D7C0085AEAA = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 7A893B572A882D7B0085AEAA;
+					};
+					7A893B722A882D7C0085AEAA = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 7A893B572A882D7B0085AEAA;
+					};
+				};
+			};
+			buildConfigurationList = 7A893B532A882D7B0085AEAA /* Build configuration list for PBXProject "Gone Fishing Test" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A893B4F2A882D7B0085AEAA;
+			productRefGroup = 7A893B592A882D7B0085AEAA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A893B572A882D7B0085AEAA /* Gone Fishing Test */,
+				7A893B682A882D7C0085AEAA /* Gone Fishing TestTests */,
+				7A893B722A882D7C0085AEAA /* Gone Fishing TestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A893B562A882D7B0085AEAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A893B602A882D7C0085AEAA /* Assets.xcassets in Resources */,
+				7A893B9C2A882F5E0085AEAA /* Media.xcassets in Resources */,
+				7A893B632A882D7C0085AEAA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B672A882D7C0085AEAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B712A882D7C0085AEAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A893B542A882D7B0085AEAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A893B932A882E130085AEAA /* Fish.swift in Sources */,
+				7A893B972A882E130085AEAA /* SimulatedWater.swift in Sources */,
+				7A893B912A882E130085AEAA /* WeatherManager.swift in Sources */,
+				7A893BA02A8831250085AEAA /* MediaLoader.swift in Sources */,
+				7A893B922A882E130085AEAA /* GoneFishing.swift in Sources */,
+				7A893B952A882E130085AEAA /* FishCountView.swift in Sources */,
+				7A893B982A882E130085AEAA /* Cloud.swift in Sources */,
+				7A893B9A2A882E300085AEAA /* Lightning.swift in Sources */,
+				7A893B5E2A882D7B0085AEAA /* ViewController.swift in Sources */,
+				7A893B942A882E130085AEAA /* Droplet.swift in Sources */,
+				7A893B962A882E130085AEAA /* NSImageExtensions.swift in Sources */,
+				7A893B5C2A882D7B0085AEAA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B652A882D7C0085AEAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A893B6E2A882D7C0085AEAA /* Gone_Fishing_TestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A893B6F2A882D7C0085AEAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A893B7A2A882D7C0085AEAA /* Gone_Fishing_TestUITestsLaunchTests.swift in Sources */,
+				7A893B782A882D7C0085AEAA /* Gone_Fishing_TestUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A893B6B2A882D7C0085AEAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A893B572A882D7B0085AEAA /* Gone Fishing Test */;
+			targetProxy = 7A893B6A2A882D7C0085AEAA /* PBXContainerItemProxy */;
+		};
+		7A893B752A882D7C0085AEAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A893B572A882D7B0085AEAA /* Gone Fishing Test */;
+			targetProxy = 7A893B742A882D7C0085AEAA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7A893B612A882D7C0085AEAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A893B622A882D7C0085AEAA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A893B7B2A882D7C0085AEAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7A893B7C2A882D7C0085AEAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		7A893B7E2A882D7C0085AEAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Gone Fishing Test/Gone_Fishing_Test.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7A893B7F2A882D7C0085AEAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Gone Fishing Test/Gone_Fishing_Test.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7A893B812A882D7C0085AEAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-TestTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gone Fishing Test.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Gone Fishing Test";
+			};
+			name = Debug;
+		};
+		7A893B822A882D7C0085AEAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-TestTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gone Fishing Test.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Gone Fishing Test";
+			};
+			name = Release;
+		};
+		7A893B842A882D7C0085AEAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-TestUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Gone Fishing Test";
+			};
+			name = Debug;
+		};
+		7A893B852A882D7C0085AEAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24653SX372;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ardenkolodner.Gone-Fishing-TestUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Gone Fishing Test";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A893B532A882D7B0085AEAA /* Build configuration list for PBXProject "Gone Fishing Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A893B7B2A882D7C0085AEAA /* Debug */,
+				7A893B7C2A882D7C0085AEAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A893B7D2A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A893B7E2A882D7C0085AEAA /* Debug */,
+				7A893B7F2A882D7C0085AEAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A893B802A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing TestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A893B812A882D7C0085AEAA /* Debug */,
+				7A893B822A882D7C0085AEAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A893B832A882D7C0085AEAA /* Build configuration list for PBXNativeTarget "Gone Fishing TestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A893B842A882D7C0085AEAA /* Debug */,
+				7A893B852A882D7C0085AEAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A893B502A882D7B0085AEAA /* Project object */;
+}

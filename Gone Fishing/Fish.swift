@@ -12,14 +12,14 @@ class Fish {
     
     private static let assets = Bundle.init(identifier: "com.ardenkolodner.Gone-Fishing")
     public static let fishImgs: [NSImage?] = [
-        assets?.image(forResource: "fish_simple_outlined"),
-        assets?.image(forResource: "fish_barrango"),
-        assets?.image(forResource: "fish_chromis_viridis"),
-        assets?.image(forResource: "fish_clownfish"),
-        assets?.image(forResource: "fish_ghost"),
-        assets?.image(forResource: "fish_minnow"),
-        assets?.image(forResource: "fish_redorange"),
-        assets?.image(forResource: "fish_yellowwavy"),
+        MediaLoader.loadImage("fish_simple_outlined"),
+        MediaLoader.loadImage("fish_barrango"),
+        MediaLoader.loadImage("fish_chromis_viridis"),
+        MediaLoader.loadImage("fish_clownfish"),
+        MediaLoader.loadImage("fish_ghost"),
+        MediaLoader.loadImage("fish_minnow"),
+        MediaLoader.loadImage("fish_redorange"),
+        MediaLoader.loadImage("fish_yellowwavy"),
     ]
     
     private let textureIndex: Int
