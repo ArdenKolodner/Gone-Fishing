@@ -81,9 +81,9 @@ class Lightning {
             path.line(to: line.p2)
             path.lineWidth = 2
             
-            NSColor.white.blended(
+            NSColor.black.blended(
                 withFraction: line.intensity,
-                of: NSColor.black
+                of: NSColor.white
             )!.setStroke()
             path.stroke()
         }
