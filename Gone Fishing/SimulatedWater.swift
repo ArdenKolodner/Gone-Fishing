@@ -8,37 +8,60 @@
 import ScreenSaver
 import Foundation
 
+/*
+ * The water is modeled as a series of control points, each with velocity,
+ * that are attached via vertical springs to each neighbor.
+ * There are 3 forces: acceleration towards neighbors, damping, and return to initial height.
+ */
 class SimulatedWater {
-    private let frame: NSRect
+    private let frame: NSRect // Reference to canvas
     
-    private let waterLevel: CGFloat
+    // Initial water height, and where water tries to go back to in the absense of other forces
+    private let waterLevel: CGFloat // Passed as a parameter
     
+    // Color of water (before taking into account water and bottom gradient)
     private var waterColor: NSColor
     
+    // How many pixels between each control point of the water
     private let pxPerPt: CGFloat = 20
+    // Number of control points in the water.
+    // There are actually this many plus one, so that far left is 0 and far right is numPts
     private let numPts: Int
     
+    // Strength of force pushing water back to its initial height (waterLevel)
     private let returnForceCoeff: CGFloat = 1
+    // Strength of force pulling each point towards its neighbors
     private let accelSpeed = 0.05
+    // Damping coefficient on each control point's motion
     private let dampeningCoeff = 0.95
-                
+    
+    // Coordinates of each control point. Kept in parallel, entries from 0 to numPts inclusive.
     private var waterXPts: [CGFloat]
     private var waterYPts: [CGFloat]
     
+    // Velocity of each control point
     private var waterSpeeds: [CGFloat]
     
+    // Gradient to fill bottom of ocean is kept pre-generated when possible
     private var waterGradient: NSGradient
+    // Color that was used to generate the gradient
+    // Also serves as a check of whether to re-generate it
     private var gradientColor: NSColor
     
-    private let flatColorFrac = 0.2 // This fraction of the screen is drawn by the gradient, the rest is flat
+    // This fraction of the screen is drawn by the gradient, the rest is flat
+    private let flatColorFrac = 0.2
+    // Gradient is only drawn in bottom part of the screen, and it's assumed that the water
+    // surface never reaches that low, so we can keep the rect pre-generated
     private let gradientRect: NSRect
-    private let gradientBlackFrac = 0.4 // This much black is blended with the water color at the bottom of the screen
+    // This much black is blended with the water color at the bottom of the screen
+    private let gradientBlackFrac = 0.4
     
     init(frame: NSRect, waterLevel: CGFloat, waterColor: NSColor) {
         self.frame = frame
         self.waterLevel = waterLevel
         self.waterColor = waterColor
         
+        // Calculate how many control points can fit across the screen
         self.numPts = Int(frame.width / pxPerPt) + 1
         
         self.waterXPts = []
