@@ -476,7 +476,7 @@ class GoneFishingView: ScreenSaverView {
             }
             
             if hookPos!.x < 0 || hookPos!.x > frame.width - hookOffset.dx {hookVel!.dx *= -1}
-            if hookPos!.y < 0 {hookVel!.dy *= -1}
+            if hookPos!.y < 0 {hookVel!.dy = abs(hookVel!.dy)}
             if hookPos!.y > frame.height {hookVel!.dy = 0; hookPos!.y = frame.height}
             
             // If hook just hit water
