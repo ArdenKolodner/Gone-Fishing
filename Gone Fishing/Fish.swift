@@ -7,6 +7,13 @@
 
 import ScreenSaver
 
+enum FishBehavior {
+    case Swim
+    case PursueHook
+    case OnHook
+    case SwimOut
+}
+
 class Fish {
     private let parent: GoneFishingView
     
@@ -136,6 +143,10 @@ class Fish {
         if display.length > 0 {
             let str = display//NSString(format: "%.1f", rotation)
             str.draw(at: CGPoint(x: position.x, y: position.y + 100))
+        }
+        
+        if position.y > parent.getWater().getWaterLevelAt(pos: position) - Fish.fishImgs[textureIndex]!.size.height/2 {
+            position.y = parent.getWater().getWaterLevelAt(pos: position) - Fish.fishImgs[textureIndex]!.size.height/2
         }
     }
     
@@ -309,5 +320,9 @@ class Fish {
                 return
             }
         }
+    }
+    
+    public func debug_setPosition(p: CGPoint) {
+        position = p
     }
 }

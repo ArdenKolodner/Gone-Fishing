@@ -4,7 +4,7 @@ import ScreenSaver
 class ViewController: NSViewController {
 
     // MARK: - Properties
-    private var saver: ScreenSaverView?
+    private var saver: GoneFishingView?
     private var timer: Timer?
     
     private var timerRunning = true
@@ -47,6 +47,9 @@ class ViewController: NSViewController {
         } else if event.keyCode == 15 {
             // R key pressed
             addScreensaver()
+        } else if event.keyCode == 14 {
+            // E key pressed
+            self.saver?.debug_elevateFish()
         } else {
             print("unhandled key: " + String(event.keyCode))
         }

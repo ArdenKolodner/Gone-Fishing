@@ -21,13 +21,6 @@ enum Phase {
     case SwitchShip
 }
 
-enum FishBehavior {
-    case Swim
-    case PursueHook
-    case OnHook
-    case SwimOut
-}
-
 class GoneFishingView: ScreenSaverView {
     private let assets = Bundle.init(identifier: "com.ardenkolodner.Gone-Fishing")
     private let boatImgs: [NSImage?]
@@ -572,5 +565,11 @@ class GoneFishingView: ScreenSaverView {
             dx: hookVel!.dx * CGFloat.random(in: splashVarianceXLower...splashVarianceXUpper),
             dy: abs(hookVel!.dy) * CGFloat.random(in: splashVarianceYLower...splashVarianceYUpper)
         )
+    }
+    
+    public func getWater() -> SimulatedWater {return water}
+    
+    public func debug_elevateFish() {
+        fish[0].debug_setPosition(p: CGPoint(x: 500, y: 600))
     }
 }
