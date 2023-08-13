@@ -263,11 +263,11 @@ class GoneFishingView: ScreenSaverView {
         color.drawSwatch(in: flatRect)
         skyGradient.draw(in: gradientRect, angle: 90)
         
+        for cloud in clouds {cloud.draw()}
+        
         water.draw()
         
         for droplet in droplets {droplet.draw()}
-        
-        for cloud in clouds {cloud.draw()}
         
         for f in fish {f.draw()}
         

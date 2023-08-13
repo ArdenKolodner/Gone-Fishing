@@ -39,13 +39,13 @@ class Cloud {
     }
     
     public func draw() {
+        lightning?.draw()
+        
         getColor().setFill()
         for rect in rects {
             let path = NSBezierPath(ovalIn: NSRect(x: position.x + rect.origin.x, y: position.y + rect.origin.y, width: rect.size.width, height: rect.size.height))
             path.fill()
         }
-        
-        lightning?.draw()
     }
     
     public func animate() {
