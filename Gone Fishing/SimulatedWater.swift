@@ -130,7 +130,9 @@ class SimulatedWater {
     }
     
     public func perturb(x: CGFloat, intensity: CGFloat) {
-        let closestPt = Int(round(x / pxPerPt))
+        var closestPt = Int(round(x / pxPerPt))
+        if closestPt < 0 {closestPt = 0}
+        else if closestPt > numPts {closestPt = numPts}
         
         waterSpeeds[closestPt] -= intensity
     }
