@@ -91,7 +91,7 @@ class GoneFishingView: ScreenSaverView {
     private let cloudSpawnInterval: CGFloat = 5
     private var cloudSpawnJitter: CGFloat = 0
     
-    private var lightningFlashBeginTime = Date.now
+    private var lightningFlashBeginTime = Date.distantPast // Want to make sure the interval doesn't trigger at beginning of execution -- not an issue for other timers, but is for this one
     private let lightningFlashDuration: CGFloat = 0.3
     
     private var lightningPrevious = Date.now
