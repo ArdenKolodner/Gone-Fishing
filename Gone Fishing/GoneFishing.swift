@@ -351,8 +351,8 @@ class GoneFishingView: ScreenSaverView {
                 let c = clouds.randomElement()!
                 let waterHeight = water.getWaterLevelAt(pos: c.getPos())
                 
-                c.doLightning(waterHeight: waterHeight)
-                water.perturb(x: c.getPos().x, intensity: -40)
+                let target = c.doLightning(waterHeight: waterHeight)
+                water.perturb(x: target.x, intensity: -40)
             }
         }
         

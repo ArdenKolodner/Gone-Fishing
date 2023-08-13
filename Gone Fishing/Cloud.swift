@@ -56,12 +56,17 @@ class Cloud {
         }
     }
     
-    public func doLightning(waterHeight: CGFloat) {
+    /*
+     * Returns the (principal) position that the lightning impacted at
+     */
+    public func doLightning(waterHeight: CGFloat) -> CGPoint {
         var target = getRainPos()
         target = CGPoint(x: target.x, y: waterHeight)
         lightning = Lightning(origin: getRainPos(), target: target)
         
         lightningBeginTime = Date.now
+        
+        return target
     }
     
     public func shouldDoRain() -> Bool {
