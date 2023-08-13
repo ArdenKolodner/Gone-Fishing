@@ -94,6 +94,10 @@ class GoneFishingView: ScreenSaverView {
     private var weatherChangePrevious = Date.now
     private let weatherChangeEventInterval: CGFloat = 10
     
+    private var cloudSpawnPrevious = Date.now
+    private let cloudSpawnInterval: CGFloat = 5
+    private var cloudSpawnJitter: CGFloat = 0
+    
     private var lightningPrevious = Date.now
     private let lightningInterval: CGFloat = 2
     
@@ -263,11 +267,11 @@ class GoneFishingView: ScreenSaverView {
         color.drawSwatch(in: flatRect)
         skyGradient.draw(in: gradientRect, angle: 90)
         
+        for droplet in droplets {droplet.draw()}
+        
         for cloud in clouds {cloud.draw()}
         
         water.draw()
-        
-        for droplet in droplets {droplet.draw()}
         
         for f in fish {f.draw()}
         
@@ -315,20 +319,17 @@ class GoneFishingView: ScreenSaverView {
         
         water.animateFrame()
         
-        var deadClouds: [Int] = []
+        var livingClouds: [Cloud] = []
         
-        for i in 0...clouds.count-1 {
-            clouds[i].animate()
+        for cloud in clouds {
+            cloud.animate()
             
-            if clouds[i].position.x <= -200 {
-                deadClouds.append(i)
+            if cloud.position.x >= -200 {
+                livingClouds.append(cloud)
             }
         }
         
-        for dead in deadClouds {
-            clouds[dead] = Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1))
-            sortClouds()
-        }
+        clouds = livingClouds
         
         // If it's raining (including storming)
         if [Weather.Rainy, Weather.Stormy].contains(WeatherManager.getWeather()) {
@@ -385,6 +386,14 @@ class GoneFishingView: ScreenSaverView {
             
             let startingWeatherRoll = Int.random(in: 1...3)
             WeatherManager.startTransitionTo(weather: startingWeatherRoll == 1 ? .Clear : startingWeatherRoll == 2 ? .Rainy : .Stormy)
+        }
+        
+        if Date.now.timeIntervalSince(cloudSpawnPrevious) >= cloudSpawnInterval + cloudSpawnJitter {
+            cloudSpawnPrevious = Date.now
+            cloudSpawnJitter = CGFloat.random(in: -cloudSpawnInterval...cloudSpawnInterval)
+            
+            clouds.append(Cloud(pos: randomCloudPos(), depth: CGFloat.random(in: 0...1)))
+            sortClouds()
         }
         
         if fishSpawnEventTimer == nil {
