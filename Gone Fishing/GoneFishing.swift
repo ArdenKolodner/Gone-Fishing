@@ -133,7 +133,7 @@ class GoneFishingView: ScreenSaverView {
             MediaLoader.loadImage("galleon"),
             MediaLoader.loadImage("galleon_insignia"),
         ]
-        hookImg = assets?.image(forResource: "fishhook")
+        hookImg = MediaLoader.loadImage("fishhook")
         
         phase = Phase.Delay
         delayStart = nil
