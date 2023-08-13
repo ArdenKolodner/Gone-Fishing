@@ -91,6 +91,9 @@ class GoneFishingView: ScreenSaverView {
     private let cloudSpawnInterval: CGFloat = 5
     private var cloudSpawnJitter: CGFloat = 0
     
+    private var lightningFlashBeginTime = Date.now
+    private let lightningFlashDuration: CGFloat = 0.3
+    
     private var lightningPrevious = Date.now
     private let lightningInterval: CGFloat = 2
     
@@ -248,7 +251,11 @@ class GoneFishingView: ScreenSaverView {
     override func draw(_ rect: NSRect) {
         // Draw a single frame in this function
         
-        let color = NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)!
+        var color = NSColor.black.blended(withFraction: WeatherManager.getCloudShadeMultiplier(), of: skyColor)!
+        if Date.now.timeIntervalSince(lightningFlashBeginTime) < lightningFlashDuration {
+            color = color.blended(withFraction: 0.3, of: NSColor.white)!
+        }
+        
         if color != gradientColor {
             gradientColor = color
             skyGradient = NSGradient(
@@ -347,6 +354,8 @@ class GoneFishingView: ScreenSaverView {
                 
                 let target = c.doLightning(waterHeight: waterHeight)
                 water.perturb(x: target.x, intensity: -40)
+                
+                lightningFlashBeginTime = Date.now
             }
         }
         

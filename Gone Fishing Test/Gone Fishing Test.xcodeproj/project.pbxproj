@@ -117,19 +117,19 @@
 		7A893B5A2A882D7B0085AEAA /* Gone Fishing Test */ = {
 			isa = PBXGroup;
 			children = (
+				7A893B8A2A882E120085AEAA /* GoneFishing.swift */,
 				7A893B9F2A8831250085AEAA /* MediaLoader.swift */,
-				7A893B9B2A882F5E0085AEAA /* Media.xcassets */,
 				7A893B992A882E300085AEAA /* Lightning.swift */,
 				7A893B902A882E130085AEAA /* Cloud.swift */,
 				7A893B8C2A882E120085AEAA /* Droplet.swift */,
 				7A893B8B2A882E120085AEAA /* Fish.swift */,
 				7A893B8D2A882E120085AEAA /* FishCountView.swift */,
-				7A893B8A2A882E120085AEAA /* GoneFishing.swift */,
 				7A893B8E2A882E120085AEAA /* NSImageExtensions.swift */,
 				7A893B8F2A882E130085AEAA /* SimulatedWater.swift */,
 				7A893B892A882E120085AEAA /* WeatherManager.swift */,
 				7A893B5B2A882D7B0085AEAA /* AppDelegate.swift */,
 				7A893B5D2A882D7B0085AEAA /* ViewController.swift */,
+				7A893B9B2A882F5E0085AEAA /* Media.xcassets */,
 				7A893B5F2A882D7C0085AEAA /* Assets.xcassets */,
 				7A893B612A882D7C0085AEAA /* Main.storyboard */,
 				7A893B642A882D7C0085AEAA /* Gone_Fishing_Test.entitlements */,
