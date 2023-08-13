@@ -7,9 +7,16 @@
 
 import ScreenSaver
 
+/*
+ * This singleton class loads image files from asset bundles.
+ * Since this is a slightly different process in the screensaver vs. in testing, this allows for one
+ * easy call that handles both cases.
+ */
 class MediaLoader {
-    private static let main = Bundle.main
+    // Screensaver assets
     private static let assets = Bundle.init(identifier: "com.ardenkolodner.Gone-Fishing")
+    // Testing assets
+    private static let main = Bundle.main
     
     public static func loadImage(_ path: String) -> NSImage? {
         let i = assets?.image(forResource: path)
