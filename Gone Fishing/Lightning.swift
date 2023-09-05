@@ -70,7 +70,7 @@ class Lightning {
         
         // Sort lines so highest intensity lines are on top
         lines.sort {
-            return $0.intensity > $1.intensity
+            return $0.intensity < $1.intensity
         }
     } // init
     
